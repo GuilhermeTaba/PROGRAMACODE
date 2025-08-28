@@ -10,7 +10,6 @@ import {
   Center,
   chakra
 } from '@chakra-ui/react';
-import { useMoralis } from "react-moralis";
 
 import Card from '../components/members/Card'
 
@@ -20,6 +19,58 @@ const time = {
   address: "0x60063c63fb535c8ae98eff9730a3748e2a805458"
 }
 
+// Dados mockados para demonstração
+const mockMembersData = {
+  diretores: [
+    {
+      token_id: "1",
+      metadata: {
+        name: "João Silva",
+        image: "https://via.placeholder.com/150",
+        attributes: [{ value: "Presidente" }]
+      }
+    },
+    {
+      token_id: "2", 
+      metadata: {
+        name: "Maria Santos",
+        image: "https://via.placeholder.com/150",
+        attributes: [{ value: "Diretor de Tech" }]
+      }
+    }
+  ],
+  business: [
+    {
+      token_id: "3",
+      metadata: {
+        name: "Pedro Costa",
+        image: "https://via.placeholder.com/150", 
+        attributes: [{ value: "Analista de Business" }]
+      }
+    }
+  ],
+  finance: [
+    {
+      token_id: "4",
+      metadata: {
+        name: "Ana Oliveira",
+        image: "https://via.placeholder.com/150",
+        attributes: [{ value: "Analista de Finance" }]
+      }
+    }
+  ],
+  tech: [
+    {
+      token_id: "5",
+      metadata: {
+        name: "Carlos Lima",
+        image: "https://via.placeholder.com/150",
+        attributes: [{ value: "Analista de Tech" }]
+      }
+    }
+  ]
+};
+
 export default function MembrosAtuais() {
 
   const [diretores, setDiretores] = useState([]);
@@ -27,47 +78,19 @@ export default function MembrosAtuais() {
   const [finance, setFinance] = useState([]);
   const [tech, setTech] = useState([]);
 
-  const { Moralis } = useMoralis();
-
   useEffect(() => {
+    // Simular carregamento de dados
     const fetchData = async () => {
-      const options = { chain: time.chain, address: time.address };
-      const NFTs = await Moralis.Web3API.token.getAllTokenIds(options);
-
-      const data = NFTs.result
-      data.reverse()
-      const cargos = data.map(value => {
-        value.metadata = JSON.parse(value.metadata)
-        return value
-
-      })
-      const membrosTech = []
-      const membrosBusiness = []
-      const membrosFinance = []
-      const membrosDiretores = []
-
-      cargos.forEach(value => {
-        if (["Presidente", "Diretor de Business", "Diretor de Finance", "Diretor de Tech", "Diretor de Conteúdos"].includes(value.metadata.attributes[0].value)) {
-          membrosDiretores.push(value);
-        }
-        if (["Analista de Finance", "Analista de Business/Finance", "Analista de Finance/Tech", "Analista de Business/Finance/Tech"].includes(value.metadata.attributes[0].value)) {
-          membrosFinance.push(value);
-        }
-        if (["Analista de Business", "Analista de Business/Finance", "Analista de Business/Tech", "Analista de Business/Finance/Tech"].includes(value.metadata.attributes[0].value)) {
-          membrosBusiness.push(value);
-        }
-        if (["Analista de Tech", "Analista de Business/Tech", "Analista de Finance/Tech", "Analista de Business/Finance/Tech"].includes(value.metadata.attributes[0].value)) {
-          membrosTech.push(value);
-        }
-      })
-
-      setTech(membrosTech)
-      setBusiness(membrosBusiness)
-      setFinance(membrosFinance)
-      setDiretores(membrosDiretores)
+      // Simular delay de API
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      setDiretores(mockMembersData.diretores);
+      setBusiness(mockMembersData.business);
+      setFinance(mockMembersData.finance);
+      setTech(mockMembersData.tech);
     }
     fetchData()
-  }, [Moralis.Web3API.token])
+  }, [])
 
   return (
     <>

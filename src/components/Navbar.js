@@ -245,50 +245,19 @@ const MobileNavItem = ({ label, children, href }) => {
 
 const NAV_ITEMS = [
   {
-    label: "Processo Seletivo",
-    href: "#/ps",
+    label: "Home",
+    href: "/",
   },
   {
-    label: "Time",
-    children: [
-      //   {
-      //     label: 'Nosso time atual',
-      //     subLabel: 'Conheça nosso time de 2021.2',
-      //     href: '/members/actual',
-      //   },
-      {
-        label: "Alumni",
-        subLabel: "Conheça nossos ex-membros",
-        href: "#/members/alumni",
-      },
-    ],
-    href: "#/members/actual",
+    label: "Eventos",
+    href: "/eventos",
   },
   {
-    label: "Núcleos",
-    children: [
-      {
-        label: "Projetos",
-        subLabel: "Conheça alguns dos nossos melhores projetos",
-        href: "#/projects",
-      },
-    ],
-    href: "#/areas",
-  },
-  {
-    label: "Fundo",
-    href: "#/fund",
-  },
-  {
-    label: "Parceiros",
-    href: "#/partnerships",
-  },
-  {
-    label: "Aprenda",
-    href: "#/learn",
+    label: "Notícias", 
+    href: "/noticias",
   },
   {
     label: "Contato",
-    href: "#/contact",
+    href: "/contato",
   }
 ];
