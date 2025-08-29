@@ -12,6 +12,7 @@ import {
   SimpleGrid,
 } from '@chakra-ui/react';
 import { FaChartLine, FaBitcoin, FaCode } from 'react-icons/fa';
+import { FaBullseye } from 'react-icons/fa';
 
 // Componente Hero inspirado no Insper Asset
 function Hero() {
@@ -146,41 +147,116 @@ function Hero() {
 // Seção Quem Somos
 function QuemSomos() {
   return (
-    <Box py={20} bg="white">
-      <Container maxW="7xl">
+    <Box 
+      py={20} 
+      bg="linear-gradient(135deg, #1a1a1a 0%, #2d1b1b 50%, #1a1a1a 100%)"
+      position="relative"
+      overflow="hidden"
+    >
+      {/* Background accent elements */}
+      <Box
+        position="absolute"
+        top="10%"
+        right="10%"
+        w="300px"
+        h="300px"
+        bg="red.600"
+        opacity={0.05}
+        borderRadius="full"
+        filter="blur(100px)"
+      />
+      <Box
+        position="absolute"
+        bottom="10%"
+        left="5%"
+        w="200px"
+        h="200px"
+        bg="red.500"
+        opacity={0.08}
+        borderRadius="full"
+        filter="blur(80px)"
+      />
+      
+      <Container maxW="7xl" position="relative" zIndex={1}>
         <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={20} alignItems="center">
-          <VStack align="start" spacing={6}>
+          <Box>
             <Heading
               fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}
-              color="gray.900"
               fontWeight="bold"
+              mb={4}
+              bgGradient="linear(to-r, red.400, red.600, red.400)"
+              bgClip="text"
+              lineHeight="shorter"
+              ml={16}
             >
               Visão e Propósito
             </Heading>
-            <Text fontSize="lg" color="gray.600" lineHeight="tall">
-              A Blockchain Insper é uma entidade estudantil voltada para a formação de 
-              profissionais de destaque e excelência no mercado financeiro.
-            </Text>
-            <Text fontSize="lg" color="gray.600" lineHeight="tall">
-              Utilizando uma abordagem prática e teórica, promovendo capacitações, 
-              palestras com profissionais do setor e projetos aplicados para aprofundar 
-              o conhecimento técnico e desenvolver habilidades essenciais.
-            </Text>
-            <Text fontSize="lg" color="gray.600" lineHeight="tall">
-              Com foco na excelência, a entidade prepara seus membros para enfrentar 
-              desafios e oportunidades no mercado financeiro, destacando valores 
-              como senso crítico e proatividade.
-            </Text>
-          </VStack>
-          
-          <Box>
-            <Image
-              src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
-              alt="Blockchain Technology"
-              borderRadius="lg"
-              shadow="xl"
-            />
+           
           </Box>
+          
+          <VStack align="start" spacing={6}>
+            <Box
+              p={6}
+              bg="rgba(255, 255, 255, 0.02)"
+              borderRadius="xl"
+              borderLeft="4px solid"
+              borderColor="red.500"
+              backdropFilter="blur(10px)"
+              transition="all 0.3s ease"
+              _hover={{
+                bg: "rgba(255, 255, 255, 0.04)",
+                transform: "translateX(8px)",
+                borderColor: "red.400"
+              }}
+            >
+              <Text fontSize="lg" color="gray.100" lineHeight="tall" fontWeight="medium">
+                A Blockchain Insper é uma entidade estudantil voltada para a formação de 
+                profissionais de destaque e excelência no mercado financeiro.
+              </Text>
+            </Box>
+            
+            <Box
+              p={6}
+              bg="rgba(255, 255, 255, 0.02)"
+              borderRadius="xl"
+              borderLeft="4px solid"
+              borderColor="red.500"
+              backdropFilter="blur(10px)"
+              transition="all 0.3s ease"
+              _hover={{
+                bg: "rgba(255, 255, 255, 0.04)",
+                transform: "translateX(8px)",
+                borderColor: "red.400"
+              }}
+            >
+              <Text fontSize="lg" color="gray.100" lineHeight="tall" fontWeight="medium">
+                Utilizando uma abordagem prática e teórica, promovendo capacitações, 
+                palestras com profissionais do setor e projetos aplicados para aprofundar 
+                o conhecimento técnico e desenvolver habilidades essenciais.
+              </Text>
+            </Box>
+            
+            <Box
+              p={6}
+              bg="rgba(255, 255, 255, 0.02)"
+              borderRadius="xl"
+              borderLeft="4px solid"
+              borderColor="red.500"
+              backdropFilter="blur(10px)"
+              transition="all 0.3s ease"
+              _hover={{
+                bg: "rgba(255, 255, 255, 0.04)",
+                transform: "translateX(8px)",
+                borderColor: "red.400"
+              }}
+            >
+              <Text fontSize="lg" color="gray.100" lineHeight="tall" fontWeight="medium">
+                Com foco na excelência, a entidade prepara seus membros para enfrentar 
+                desafios e oportunidades no mercado financeiro, destacando valores 
+                como senso crítico e proatividade.
+              </Text>
+            </Box>
+          </VStack>
         </SimpleGrid>
       </Container>
     </Box>
@@ -188,21 +264,21 @@ function QuemSomos() {
 }
 
 // Seção Áreas de Atuação
-function AreasAtuacao() {
+function Detalhes() {
   const areas = [
     {
-      icon: FaChartLine,
-      title: 'Business',
+      icon: FaBullseye,
+      title: 'Nossa Missão',
       description: 'Análise de mercado, estratégias de negócio e desenvolvimento de parcerias estratégicas no ecossistema blockchain.',
     },
     {
-      icon: FaBitcoin,
-      title: 'Finanças',
+      icon: FaChartLine, // alterado de FaBitcoin para FaChartLine
+      title: 'Nossa Visão',
       description: 'Gestão de portfólio, análise de investimentos e desenvolvimento de soluções financeiras inovadoras.',
     },
     {
-      icon: FaCode,
-      title: 'Tecnologia',
+      icon: FaCode, // alterado de FaBitcoin para FaCode
+      title: 'Nossos Valores',
       description: 'Desenvolvimento de aplicações blockchain, smart contracts e soluções técnicas para o mercado financeiro.',
     },
   ];
@@ -212,17 +288,8 @@ function AreasAtuacao() {
       <Container maxW="7xl">
         <VStack spacing={12}>
           <Stack textAlign="center" spacing={4}>
-            <Heading
-              fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}
-              color="gray.900"
-              fontWeight="bold"
-            >
-              Áreas de Atuação
-            </Heading>
-            <Text fontSize="lg" color="gray.600" maxW="2xl">
-              Nossas três frentes de trabalho que integram conhecimento teórico 
-              e aplicação prática no mercado financeiro
-            </Text>
+
+
           </Stack>
           
           <SimpleGrid columns={{ base: 1, md: 3 }} spacing={10} w="full">
@@ -269,13 +336,14 @@ function Estatisticas() {
   ];
 
   return (
-    <Box py={20} bg="gray.900" color="white">
+    <Box py={20}     bg="linear-gradient(135deg, #1a1a1a 0%, #2d1b1b 50%, #1a1a1a 100%)"  olor="white">
       <Container maxW="7xl">
         <VStack spacing={12}>
           <Heading
             fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}
             textAlign="center"
             fontWeight="bold"
+            color='white'
           >
             Impacto e Resultados
           </Heading>
@@ -363,7 +431,7 @@ export default function Home() {
     <>
       <Hero />
       <QuemSomos />
-      <AreasAtuacao />
+      <Detalhes />
       <Estatisticas />
       <Parceiros />
     </>
