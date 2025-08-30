@@ -121,6 +121,7 @@ export default function Parcerias() {
             bgGradient={BRAND_RED_GRADIENT}
             bgClip="text"
             display="inline-block"
+            fontFamily={"'Inter', 'Poppins', 'Roboto', system-ui, sans-serif"}
           >
             Parceiros
           </Heading>
@@ -139,14 +140,18 @@ export default function Parcerias() {
             position="relative"
             overflow="hidden"
           >
-            <Text fontSize={{ base: "md", md: "lg" }} fontWeight="600" lineHeight="1.5">
+            <Text
+              fontSize={{ base: "md", md: "lg" }}
+              fontWeight="600"
+              lineHeight="1.5"
+              fontFamily={"'Inter', 'Source Sans Pro', system-ui, sans-serif"}
+            >
               A Blockchain Insper reúne instituições, empresas e pessoas que
               contribuem para o ecossistema — uma rede de apoiadores do mercado
               tradicional e das iniciativas disruptivas. Esta página é apenas
               informativa e não contém formulários ou solicitações de dados.
             </Text>
           </Box>
-
         </Container>
       </Box>
 
