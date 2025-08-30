@@ -591,19 +591,19 @@ const Testimonials = () => {
     {
       name: "Felipe Santos",
       role: "Co-fundador e Ex-membro",
-      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+      avatar: "/felipe.jpeg",
       testimonial: "Hoje acredito que a entidade se tornou algo muito mais próximo do que imaginávamos quando foi fundada, um organismo que funciona de maneira independente de qualquer membro específico. Além da possibilidade de aprender e debater com pessoas inteligentes sobre caminhos futuros para a sociedade por meio da tecnologia, os membros têm a oportunidade de aplicar essas ideias na prática nas áreas internas e também em projetos com as principais empresas do país como Ambev e BTG Pactual."
     },
     {
       name: "Bruno Arthur",
       role: "Co-fundador e Ex-membro",
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+      avatar: "/bruno.jpeg",
       testimonial: "Quando me chamaram e disseram que estavam fazendo uma entidade relacionada a isso eu vi uma oportunidade de disseminar o conhecimento nem que fosse dentro do próprio Insper. Foi então que me juntei ao time de fundadores da entidade. Com uma missão de difundir o conhecimento e fazer com que as pessoas gostem de aprender e tenham as melhores ferramentas à sua disposição. Por isso decido fazer vários projetos para que eu possa levar o conhecimento que fui adquirindo para os outros seja na forma de aulas, ou até mesmo mentoria de um projeto proposto."
     },
     {
       name: "João P. J. M. Perpétuo",
       role: "Co-fundador e Ex-membro",
-      avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+      avatar: "/joao.jpeg",
       testimonial: "Fundar a B.I. foi um desafio ímpar. Estudar uma tecnologia tão latente e nova trouxe desafios extras, mas ao mesmo tempo diferenciais competitivos em nossos currículos, logo no início de nossas carreiras. Habilidades de aprendizado, gestão de equipe, resolução de conflitos, entendimento de viabilidade de projetos e tomada de decisão, eram desenvolvidas a cada dia. Hoje posso falar que a entidade teve papel fundamental em meu desenvolvimento profissional e na posição que ocupo hoje."
     }
   ];
