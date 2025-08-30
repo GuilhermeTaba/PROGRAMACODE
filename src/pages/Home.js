@@ -10,9 +10,11 @@ import {
   VStack,
   Stack,
   SimpleGrid,
+  Avatar,
+  HStack,
 } from '@chakra-ui/react';
 import { FaChartLine, FaBitcoin, FaCode } from 'react-icons/fa';
-import { FaBullseye } from 'react-icons/fa';
+import { FaBullseye ,FaQuoteLeft} from 'react-icons/fa';
 
 // Componente Hero inspirado no Insper Asset
 function Hero() {
@@ -415,9 +417,15 @@ function Estatisticas() {
       <Container maxW="7xl">
         <VStack spacing={12}>
           <Heading
-            fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}
+
             textAlign="center"
-            fontWeight="bold"
+            fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}
+            fontWeight="800"
+            lineHeight="1.1"
+            fontFamily="'Inter', 'Poppins', 'Roboto', system-ui, sans-serif"
+            letterSpacing="-0.02em"
+        
+  
             color='white'
           >
             Impacto e Resultados
@@ -506,6 +514,165 @@ function Parceiros() {
     </Box>
   );
 }
+const TestimonialCard = ({ testimonial, name, role, avatar }) => {
+  return (
+    <Box
+      bg="white"
+      p={8}
+      borderRadius="xl"
+      shadow="xl"
+      position="relative"
+      border="1px"
+      borderColor="gray.100"
+      _hover={{
+        transform: 'translateY(-5px)',
+        shadow: '2xl',
+        transition: 'all 0.3s ease',
+      }}
+      transition="all 0.3s ease"
+    >
+      {/* Quote Icon */}
+      <Icon
+        as={FaQuoteLeft}
+        w={8}
+        h={8}
+        color="red.500"
+        position="absolute"
+        top={-4}
+        left={8}
+        bg="white"
+        p={2}
+        borderRadius="full"
+        shadow="md"
+      />
+      
+      {/* Testimonial Text */}
+      <Text
+              fontSize={{ base: '12px', md: '14px', lg: '18px' }}
+              maxW="4xl"
+              lineHeight="1.6"
+              color="gray.700"
+              fontFamily="'Inter', 'Source Sans Pro', system-ui, sans-serif"
+              fontWeight="100"
+              
+              mx="auto"
+              
+        mb={6}
+        mt={4}
+        textAlign="justify"
+      >
+        {testimonial}
+      </Text>
+      
+      {/* Author Info */}
+      <HStack spacing={4} align="center">
+        <Avatar
+          size="md"
+          name={name}
+          src={avatar}
+          border="3px solid"
+          borderColor="red.500"
+        />
+        <VStack align="start" spacing={0}>
+          <Text fontWeight="bold" fontSize="lg" color="black">
+            {name}
+          </Text>
+          <Text fontSize="sm" color="red.500" fontWeight="medium">
+            {role}
+          </Text>
+        </VStack>
+      </HStack>
+    </Box>
+  );
+};
+
+const Testimonials = () => {
+  const testimonials = [
+    {
+      name: "Felipe Santos",
+      role: "Co-fundador e Ex-membro",
+      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+      testimonial: "Hoje acredito que a entidade se tornou algo muito mais próximo do que imaginávamos quando foi fundada, um organismo que funciona de maneira independente de qualquer membro específico. Além da possibilidade de aprender e debater com pessoas inteligentes sobre caminhos futuros para a sociedade por meio da tecnologia, os membros têm a oportunidade de aplicar essas ideias na prática nas áreas internas e também em projetos com as principais empresas do país como Ambev e BTG Pactual."
+    },
+    {
+      name: "Bruno Arthur",
+      role: "Co-fundador e Ex-membro",
+      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+      testimonial: "Quando me chamaram e disseram que estavam fazendo uma entidade relacionada a isso eu vi uma oportunidade de disseminar o conhecimento nem que fosse dentro do próprio Insper. Foi então que me juntei ao time de fundadores da entidade. Com uma missão de difundir o conhecimento e fazer com que as pessoas gostem de aprender e tenham as melhores ferramentas à sua disposição. Por isso decido fazer vários projetos para que eu possa levar o conhecimento que fui adquirindo para os outros seja na forma de aulas, ou até mesmo mentoria de um projeto proposto."
+    },
+    {
+      name: "João P. J. M. Perpétuo",
+      role: "Co-fundador e Ex-membro",
+      avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+      testimonial: "Fundar a B.I. foi um desafio ímpar. Estudar uma tecnologia tão latente e nova trouxe desafios extras, mas ao mesmo tempo diferenciais competitivos em nossos currículos, logo no início de nossas carreiras. Habilidades de aprendizado, gestão de equipe, resolução de conflitos, entendimento de viabilidade de projetos e tomada de decisão, eram desenvolvidas a cada dia. Hoje posso falar que a entidade teve papel fundamental em meu desenvolvimento profissional e na posição que ocupo hoje."
+    }
+  ];
+
+  return (
+    <Box bg="white" minH="100vh" py={20}>
+      <Container maxW="7xl">
+        <VStack spacing={16}>
+          {/* Header */}
+          <VStack spacing={4} textAlign="center">
+            <Heading
+              fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}
+              fontWeight="800"
+              lineHeight="1.1"
+              fontFamily="'Inter', 'Poppins', 'Roboto', system-ui, sans-serif"
+              letterSpacing="-0.02em"
+              mb={4}
+             
+              color="red.600"
+            >
+              Depoimentos de nossos membros
+             
+            </Heading>
+            <Text
+              fontSize={{ base: '12px', md: '14px', lg: '18px' }}
+              maxW="4xl"
+              lineHeight="1.6"
+              color="gray.700"
+              fontFamily="'Inter', 'Source Sans Pro', system-ui, sans-serif"
+              fontWeight="100"
+              
+              textAlign="center"
+              lineHeight="tall"
+            >
+              Conheça as experiências e histórias de quem fez parte da nossa jornada
+            </Text>
+          </VStack>
+
+          {/* Testimonials Grid */}
+          <SimpleGrid
+            columns={{ base: 1, lg: 3 }}
+            spacing={8}
+            w="full"
+          >
+            {testimonials.map((testimonial, index) => (
+              <TestimonialCard
+                key={index}
+                testimonial={testimonial.testimonial}
+                name={testimonial.name}
+                role={testimonial.role}
+                avatar={testimonial.avatar}
+              />
+            ))}
+          </SimpleGrid>
+
+          {/* Bottom Accent */}
+          <Box
+            w="100px"
+            h="4px"
+            bg="red.500"
+            borderRadius="full"
+            mx="auto"
+          />
+        </VStack>
+      </Container>
+    </Box>
+  );
+};
+
 
 export default function Home() {
   return (
@@ -514,7 +681,7 @@ export default function Home() {
       <Detalhes />
 
       <Estatisticas />
-      
+      <Testimonials/>
     </>
   );
 }
