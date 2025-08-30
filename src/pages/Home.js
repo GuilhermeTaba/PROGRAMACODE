@@ -143,73 +143,207 @@ function Hero() {
     </Box>
   );
 }
+function Detalhes() {
+  const areas = [
+    {
+      icon: FaBullseye,
+      title: 'Nossa Missão',
+      description:
+        'Fomentar o desenvolvimento do ecossistema brasileiro em torno da tecnologia blockchain, criando um futuro mais eficiente através da tecnologia',
+      accent: 'red.600',
+      iconBg: 'red.50',
+      iconColor: 'red.600',
+      border: '1px solid #eee',
+    },
+    {
+      icon: FaChartLine,
+      title: 'Nossa Visão',
+      description:
+        'Capacitar os alunos com o melhor conteúdo e conectá-los ao mercado, no intuito de incluir nosso país nesse cenário de inovação',
+      accent: 'black',
+      iconBg: 'gray.100',
+      iconColor: 'black',
+      border: '1px solid #eee',
+    },
+    {
+      icon: FaCode,
+      title: 'Nossos Valores',
+      description:
+        'Alto comprometimento, proatividade, inovação, trabalho em equipe, multidisciplinaridade, excelência e eficiência',
+      accent: 'black',
+      iconBg: 'gray.900',
+      iconColor: 'white',
+      border: '1px solid #eee',
+    },
+  ];
 
+  return (
+    <Box py={20} bg="white" minH = "75vH">
+      <Container maxW="7xl">
+        <VStack spacing={10}>
+          <Stack textAlign="center" spacing={2}>
+            <Heading
+              fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}
+              fontWeight="800"
+              lineHeight="1.1"
+              fontFamily="'Inter', 'Poppins', 'Roboto', system-ui, sans-serif"
+              letterSpacing="-0.02em"
+              mb={4}
+             
+              color="red.600"
+              
+            >
+              O que nos move
+            </Heading>
+            <Text
+              fontSize={{ base: '12px', md: '14px', lg: '18px' }}
+              maxW="4xl"
+              lineHeight="1.6"
+              color="gray.700"
+              fontFamily="'Inter', 'Source Sans Pro', system-ui, sans-serif"
+              fontWeight="100"
+              
+              mx="auto"
+              
+            >
+              Conheça nossos pilares fundamentais para transformar o mercado financeiro com blockchain.
+            </Text>
+          </Stack>
+
+          <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8} w="full">
+            {areas.map((area, index) => (
+              <Box
+                key={index}
+                bg="white"
+                p={8}
+                borderRadius="2xl"
+                border={area.border}
+                boxShadow="sm"
+                minH="300px"
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+                transition="all 0.2s"
+                _hover={{
+                  boxShadow: 'lg',
+                  transform: 'translateY(-4px) scale(1.03)',
+                }}
+              >
+                <Box
+                  bg={area.iconBg}
+                  borderRadius="full"
+                  p={4}
+                  mb={4}
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  <Icon as={area.icon} w={10} h={10} color={area.iconColor} />
+                </Box>
+                <Heading
+                  size="md"
+                  color={area.accent}
+                  fontWeight="bold"
+                  letterSpacing="-0.01em"
+                  mb={2}
+                  textAlign="center"
+                >
+                  {area.title}
+                </Heading>
+                <Text
+                  color={index === 2 ? 'gray.800' : 'gray.700'}
+                  fontSize={{ base: '12px', md: '14px', lg: '18px' }}
+                  maxW="4xl"
+                  lineHeight="1.6"
+                  
+                  fontFamily="'Inter', 'Source Sans Pro', system-ui, sans-serif"
+                  fontWeight="100"
+                >
+                  {area.description}
+                </Text>
+              </Box>
+            ))}
+          </SimpleGrid>
+        </VStack>
+      </Container>
+    </Box>
+  );
+}
 // Seção Quem Somos
 function QuemSomos() {
   return (
     <Box 
-      py={20} 
-      bg="linear-gradient(135deg, #1a1a1a 0%, #2d1b1b 50%, #1a1a1a 100%)"
       position="relative"
+      minH="100vh"
+      bgGradient="linear(to-br, gray.900, gray.800)"
+      color="white"
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
       overflow="hidden"
     >
-      {/* Background accent elements */}
       <Box
         position="absolute"
-        top="10%"
-        right="10%"
-        w="300px"
-        h="300px"
-        bg="red.600"
-        opacity={0.05}
-        borderRadius="full"
-        filter="blur(100px)"
+        top={0}
+        left={0}
+        right={0}
+        bottom={0}
+        bg="rgba(35,35,38,0.85)"
+        zIndex={0}
       />
-      <Box
+      <Image
+        src="/insper-aquario.jpg"
+        alt="Insper Biblioteca"
+        objectFit="cover"
         position="absolute"
-        bottom="10%"
-        left="5%"
-        w="200px"
-        h="200px"
-        bg="red.500"
-        opacity={0.08}
-        borderRadius="full"
-        filter="blur(80px)"
+        top={0}
+        left={0}
+        width="100%"
+        height="100%"
+        zIndex={0}
+        opacity={0.3}
+        filter="brightness(0.25)" 
       />
-      
       <Container maxW="7xl" position="relative" zIndex={1}>
-        <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={20} alignItems="center">
+        <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={16} alignItems="center">
           <Box>
             <Heading
+
               fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}
-              fontWeight="bold"
+              fontWeight="800"
+              lineHeight="1.1"
+              fontFamily="'Inter', 'Poppins', 'Roboto', system-ui, sans-serif"
+              letterSpacing="-0.02em"
               mb={4}
-              bgGradient="linear(to-r, red.400, red.600, red.400)"
-              bgClip="text"
-              lineHeight="shorter"
-              ml={16}
+              color="white"
+
+              ml={{ base: 0, lg: 16 }}
             >
               Visão e Propósito
             </Heading>
-           
           </Box>
           
           <VStack align="start" spacing={6}>
             <Box
               p={6}
-              bg="rgba(255, 255, 255, 0.02)"
+              bg="rgba(255,255,255,0.04)"
               borderRadius="xl"
               borderLeft="4px solid"
               borderColor="red.500"
-              backdropFilter="blur(10px)"
-              transition="all 0.3s ease"
+              transition="all 0.3s"
               _hover={{
-                bg: "rgba(255, 255, 255, 0.04)",
-                transform: "translateX(8px)",
+                bg: "rgba(255,255,255,0.08)",
                 borderColor: "red.400"
               }}
             >
-              <Text fontSize="lg" color="gray.100" lineHeight="tall" fontWeight="medium">
+              <Text            
+              
+            fontSize={{ base: '12px', md: '14px', lg: '18px' }}
+            maxW="4xl"
+            lineHeight="1.6"
+            color="gray.300"
+            fontFamily="'Inter', 'Source Sans Pro', system-ui, sans-serif"
+            fontWeight="100">
                 A Blockchain Insper é uma entidade estudantil voltada para a formação de 
                 profissionais de destaque e excelência no mercado financeiro.
               </Text>
@@ -217,19 +351,23 @@ function QuemSomos() {
             
             <Box
               p={6}
-              bg="rgba(255, 255, 255, 0.02)"
+              bg="rgba(255,255,255,0.04)"
               borderRadius="xl"
               borderLeft="4px solid"
               borderColor="red.500"
-              backdropFilter="blur(10px)"
-              transition="all 0.3s ease"
+              transition="all 0.3s"
               _hover={{
-                bg: "rgba(255, 255, 255, 0.04)",
-                transform: "translateX(8px)",
+                bg: "rgba(255,255,255,0.08)",
                 borderColor: "red.400"
               }}
             >
-              <Text fontSize="lg" color="gray.100" lineHeight="tall" fontWeight="medium">
+              <Text             
+            fontSize={{ base: '12px', md: '14px', lg: '18px' }}
+            maxW="4xl"
+            lineHeight="1.6"
+            color="gray.300"
+            fontFamily="'Inter', 'Source Sans Pro', system-ui, sans-serif"
+            fontWeight="100">
                 Utilizando uma abordagem prática e teórica, promovendo capacitações, 
                 palestras com profissionais do setor e projetos aplicados para aprofundar 
                 o conhecimento técnico e desenvolver habilidades essenciais.
@@ -238,19 +376,23 @@ function QuemSomos() {
             
             <Box
               p={6}
-              bg="rgba(255, 255, 255, 0.02)"
+              bg="rgba(255,255,255,0.04)"
               borderRadius="xl"
               borderLeft="4px solid"
               borderColor="red.500"
-              backdropFilter="blur(10px)"
-              transition="all 0.3s ease"
+              transition="all 0.3s"
               _hover={{
-                bg: "rgba(255, 255, 255, 0.04)",
-                transform: "translateX(8px)",
+                bg: "rgba(255,255,255,0.08)",
                 borderColor: "red.400"
               }}
             >
-              <Text fontSize="lg" color="gray.100" lineHeight="tall" fontWeight="medium">
+              <Text             
+            fontSize={{ base: '12px', md: '14px', lg: '18px' }}
+            maxW="4xl"
+            lineHeight="1.6"
+            color="gray.300"
+            fontFamily="'Inter', 'Source Sans Pro', system-ui, sans-serif"
+            fontWeight="100">
                 Com foco na excelência, a entidade prepara seus membros para enfrentar 
                 desafios e oportunidades no mercado financeiro, destacando valores 
                 como senso crítico e proatividade.
@@ -264,67 +406,7 @@ function QuemSomos() {
 }
 
 // Seção Áreas de Atuação
-function Detalhes() {
-  const areas = [
-    {
-      icon: FaBullseye,
-      title: 'Nossa Missão',
-      description: 'Análise de mercado, estratégias de negócio e desenvolvimento de parcerias estratégicas no ecossistema blockchain.',
-    },
-    {
-      icon: FaChartLine, // alterado de FaBitcoin para FaChartLine
-      title: 'Nossa Visão',
-      description: 'Gestão de portfólio, análise de investimentos e desenvolvimento de soluções financeiras inovadoras.',
-    },
-    {
-      icon: FaCode, // alterado de FaBitcoin para FaCode
-      title: 'Nossos Valores',
-      description: 'Desenvolvimento de aplicações blockchain, smart contracts e soluções técnicas para o mercado financeiro.',
-    },
-  ];
 
-  return (
-    <Box py={20} bg="gray.50">
-      <Container maxW="7xl">
-        <VStack spacing={12}>
-          <Stack textAlign="center" spacing={4}>
-
-
-          </Stack>
-          
-          <SimpleGrid columns={{ base: 1, md: 3 }} spacing={10} w="full">
-            {areas.map((area, index) => (
-              <Box
-                key={index}
-                bg="white"
-                p={8}
-                borderRadius="xl"
-                shadow="lg"
-                _hover={{ transform: 'translateY(-4px)', shadow: 'xl' }}
-                transition="all 0.3s"
-              >
-                <VStack spacing={6} align="center" textAlign="center">
-                  <Icon
-                    as={area.icon}
-                    w={12}
-                    h={12}
-                    color="brand.500"
-                  />
-                  <Heading size="lg" color="gray.900">
-                    {area.title}
-                  </Heading>
-                  <Text color="gray.600" lineHeight="tall">
-                    {area.description}
-                  </Text>
-                </VStack>
-              </Box>
-            ))}
-          </SimpleGrid>
-        </VStack>
-      </Container>
-    </Box>
-  );
-}
 
 // Seção de Estatísticas (inspirada no Insper Asset)
 function Estatisticas() {
@@ -334,9 +416,33 @@ function Estatisticas() {
     { label: 'Parceiros', value: '+20' },
     { label: 'Eventos', value: '+100' },
   ];
-
+   
   return (
-    <Box py={20}     bg="linear-gradient(135deg, #1a1a1a 0%, #2d1b1b 50%, #1a1a1a 100%)"  olor="white">
+    <Box  
+      position="relative"
+      minH="75vh"
+      bgGradient="linear(to-br, gray.900, gray.800)"
+      color="white"
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      overflow="hidden"
+      py={20}
+    >
+  <Image
+        src="/insper-aquario.jpg"
+        alt="Insper Biblioteca"
+        objectFit="cover"
+        position="absolute"
+        top={0}
+        left={0}
+        width="100%"
+        height="100%"
+        zIndex={0}
+        opacity={0.3}
+        filter="brightness(0.25)" 
+      />
+
       <Container maxW="7xl">
         <VStack spacing={12}>
           <Heading
@@ -359,9 +465,14 @@ function Estatisticas() {
                   {stat.value}
                 </Text>
                 <Text
-                  fontSize={{ base: 'md', md: 'lg' }}
-                  color="gray.300"
-                  fontWeight="medium"
+  
+                  
+            fontSize={{ base: '12px', md: '14px', lg: '18px' }}
+            maxW="4xl"
+            lineHeight="1.6"
+            color="gray.300"
+            fontFamily="'Inter', 'Source Sans Pro', system-ui, sans-serif"
+            fontWeight="100"
                 >
                   {stat.label}
                 </Text>
@@ -371,6 +482,7 @@ function Estatisticas() {
         </VStack>
       </Container>
     </Box>
+   
   );
 }
 
@@ -430,10 +542,10 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <QuemSomos />
       <Detalhes />
+
       <Estatisticas />
-      <Parceiros />
+      
     </>
   );
 }
