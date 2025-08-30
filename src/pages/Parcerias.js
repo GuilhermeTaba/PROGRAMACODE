@@ -158,23 +158,6 @@ export default function Parcerias() {
           ))}
         </SimpleGrid>
       </Container>
-
-      {/* Visão e Propósito - seção nova adicionada */}
-      <Box as="section" py={{ base: 12, md: 20 }}>
-        <Container maxW="6xl" px={{ base: 6, lg: 8 }}>
-          <Heading
-            as="h2"
-            fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
-            fontWeight="700"
-            letterSpacing="tight"
-            bgGradient={BRAND_RED_GRADIENT}
-            bgClip="text"
-            display="inline-block"
-          >
-            Visão e Propósito
-          </Heading>
-        </Container>
-      </Box>
     </Box>
   );
 }
