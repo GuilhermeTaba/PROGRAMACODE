@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Eventos from "./pages/Eventos";
 import Noticias from "./pages/Noticias";
 import Contato from "./pages/Contato";
+import Parcerias from "./pages/Parcerias";
 
 // Admin components
 import { AuthProvider } from "./hooks/useAuth";
@@ -27,7 +28,7 @@ const theme = extendTheme({
   colors: {
     brand: {
       50: "#fff5f5",
-      100: "#fed7d7", 
+      100: "#fed7d7",
       200: "#feb2b2",
       300: "#fc8181",
       400: "#f56565",
@@ -95,6 +96,24 @@ function App() {
             <>
               <Navbar />
               <Contato />
+              <Footer />
+            </>
+          } />
+
+          {/* Unificado: rota /parceiros (substitui /parcerias) */}
+          <Route path="/parceiros" element={
+            <>
+              <Navbar />
+              <Parcerias />
+              <Footer />
+            </>
+          } />
+
+          {/* Alias em inglês para a mesma página */}
+          <Route path="/partnerships" element={
+            <>
+              <Navbar />
+              <Parcerias />
               <Footer />
             </>
           } />

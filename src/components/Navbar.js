@@ -26,6 +26,7 @@ import {
 } from "@chakra-ui/icons";
 import LogoLight from "../assets/logo-light.svg";
 import LogoDark from "../assets/logo-dark.svg";
+import { Link as RouterLink } from "react-router-dom";
 
 export default function WithSubnavigation() {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -253,11 +254,15 @@ const NAV_ITEMS = [
     href: "/eventos",
   },
   {
-    label: "Notícias", 
+    label: "Notícias",
     href: "/noticias",
+  },
+  {
+    label: "Parceiros",
+    href: "/parceiros", // alterado de /parcerias para /parceiros
   },
   {
     label: "Contato",
     href: "/contato",
-  }
+  },
 ];
