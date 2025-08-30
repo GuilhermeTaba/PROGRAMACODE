@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Flex,
   Text,
   IconButton,
@@ -14,35 +13,29 @@ import {
   PopoverContent,
   useColorModeValue,
   useDisclosure,
-  useColorMode,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
   CloseIcon,
   ChevronDownIcon,
   ChevronRightIcon,
-  MoonIcon,
-  SunIcon,
 } from "@chakra-ui/icons";
 import LogoLight from "../assets/logo-light.svg";
-import LogoDark from "../assets/logo-dark.svg";
-import { Link as RouterLink } from "react-router-dom";
 
 export default function WithSubnavigation() {
-  const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onToggle } = useDisclosure();
 
   return (
     <Box>
       <Flex
-        bg={useColorModeValue("white", "gray.800")}
-        color={useColorModeValue("gray.600", "white")}
+        bg={"white"}
+        color={"gray.600"}
         minH={"60px"}
         py={{ base: 2 }}
         px={{ base: 4 }}
         borderBottom={1}
         borderStyle={"solid"}
-        borderColor={useColorModeValue("gray.200", "gray.900")}
+        borderColor={"gray.200"}
         align={"center"}
       >
         <Flex
@@ -61,27 +54,14 @@ export default function WithSubnavigation() {
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
           <Link href="/">
-            {colorMode === "light" ? (
-              <Image src={LogoLight} width="100px" />
-            ) : (
-              <Image src={LogoDark} width="100px" />
-            )}
+            <Image src={LogoLight} width="100px" />
           </Link>
           <Flex display={{ base: "none", md: "flex" }} ml={10}>
             <DesktopNav />
           </Flex>
         </Flex>
 
-        <Stack
-          flex={{ base: 1, md: 0 }}
-          justify={"flex-end"}
-          direction={"row"}
-          spacing={6}
-        >
-          <Button onClick={toggleColorMode}>
-            {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-          </Button>
-        </Stack>
+        {/* botão de modo removido */}
       </Flex>
 
       <Collapse in={isOpen} animateOpacity>
@@ -92,9 +72,9 @@ export default function WithSubnavigation() {
 }
 
 const DesktopNav = () => {
-  const linkColor = useColorModeValue("gray.600", "gray.200");
-  const linkHoverColor = useColorModeValue("gray.800", "white");
-  const popoverContentBgColor = useColorModeValue("white", "gray.800");
+  const linkColor = "gray.600";
+  const linkHoverColor = "gray.800";
+  const popoverContentBgColor = "white";
 
   return (
     <Stack direction={"row"} spacing={4}>
@@ -148,7 +128,7 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
       display={"block"}
       p={2}
       rounded={"md"}
-      _hover={{ bg: useColorModeValue("#f7e2dc", "gray.900") }}
+      _hover={{ bg: "#f7e2dc" }}
     >
       <Stack direction={"row"} align={"center"}>
         <Box>
@@ -179,11 +159,7 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
 
 const MobileNav = () => {
   return (
-    <Stack
-      bg={useColorModeValue("white", "gray.800")}
-      p={4}
-      display={{ md: "none" }}
-    >
+    <Stack bg={"white"} p={4} display={{ md: "none" }}>
       {NAV_ITEMS.map((navItem) => (
         <MobileNavItem key={navItem.label} {...navItem} />
       ))}
@@ -206,10 +182,7 @@ const MobileNavItem = ({ label, children, href }) => {
           textDecoration: "none",
         }}
       >
-        <Text
-          fontWeight={600}
-          color={useColorModeValue("gray.600", "gray.200")}
-        >
+        <Text fontWeight={600} color={"gray.600"}>
           {label}
         </Text>
         {children && (
@@ -229,7 +202,7 @@ const MobileNavItem = ({ label, children, href }) => {
           pl={4}
           borderLeft={1}
           borderStyle={"solid"}
-          borderColor={useColorModeValue("gray.200", "gray.700")}
+          borderColor={"gray.200"}
           align={"start"}
         >
           {children &&
