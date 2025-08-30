@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Eventos from "./pages/Eventos";
 import Noticias from "./pages/Noticias";
 import Contato from "./pages/Contato";
+import Parcerias from "./pages/Parcerias";
 
 // Admin components
 import { AuthProvider } from "./hooks/useAuth";
@@ -95,6 +96,20 @@ function App() {
             <>
               <Navbar />
               <Contato />
+              <Footer />
+            </>
+          } />
+          <Route path="/parcerias" element={
+            <>
+              <Navbar />
+              <Parcerias />
+              <Footer />
+            </>
+          } />
+          <Route path="/partnerships" element={
+            <>
+              <Navbar />
+              <Parcerias />
               <Footer />
             </>
           } />
