@@ -8,9 +8,10 @@ import {
   Avatar,
   useColorModeValue,
 } from '@chakra-ui/react';
-import Joao from '../../assets/joao.jpeg'
-import Felipe from '../../assets/felipe.jpeg'
-import Bruno from '../../assets/bruno.jpeg'
+import Joao from '/joao.jpeg'
+import Felipe from '/felipe.jpeg'
+import Bruno from '/bruno.jpeg'
+
 
 const Testimonial = ({ children }) => {
   return <Box>{children}</Box>;

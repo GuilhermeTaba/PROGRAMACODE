@@ -1,230 +1,327 @@
+import React, { useState, useEffect } from 'react';
 import {
-  Container,
-  Flex,
   Box,
+  Container,
   Heading,
   Text,
-  IconButton,
-  HStack,
-  Wrap,
-  WrapItem,
-  Center,
   Stack,
-  AspectRatio,
+  SimpleGrid,
+  VStack,
+  Icon,
   useColorModeValue,
   Link,
-  FormControl,
-  FormLabel,
-  Input,
-  Textarea,
-  Button,
-} from "@chakra-ui/react";
+  Spinner,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+} from '@chakra-ui/react';
+import { 
+  FaEnvelope, 
+  FaPhone, 
+  FaMapMarkerAlt, 
+  FaClock,
+  FaLinkedin, 
+  FaInstagram,
+  FaTwitter 
+} from 'react-icons/fa';
+import apiService from '../services/api';
 
-import { Separator } from "../components/Separator";
-import { MdOutlineEmail } from "react-icons/md";
-import { BsLinkedin, BsInstagram, BsDiscord } from "react-icons/bs";
-
-function handleEmailSubmission(e) {
-  e.preventDefault();
-
-  const formData = new FormData(e.target);
-  const name = formData.get("name");
-  const email = formData.get("email");
-  const message = formData.get("message");
-
-  // validation
-  if (!name || !email || !message) {
-    alert("Por favor, preencha todos os campos!");
-    return;
-  }
-
-  // clear the form
-  e.target.reset();
+function ContactCard({ icon, title, content, link }) {
+  const bg = useColorModeValue('white', 'gray.800');
+  const borderColor = useColorModeValue('gray.200', 'gray.600');
+  
+  return (
+    <Box
+      bg={bg}
+      p={8}
+      borderRadius="xl"
+      shadow="lg"
+      border="1px"
+      borderColor={borderColor}
+      _hover={{ 
+        transform: 'translateY(-2px)', 
+        shadow: 'xl',
+        transition: 'all 0.3s ease'
+      }}
+    >
+      <VStack spacing={4} align="center" textAlign="center">
+        <Icon
+          as={icon}
+          w={8}
+          h={8}
+          color="red.500"
+        />
+        <Heading size="md" color="gray.900">
+          {title}
+        </Heading>
+        {link ? (
+          <Link 
+            href={link} 
+            color="red.500" 
+            _hover={{ color: 'red.600' }}
+            isExternal
+          >
+            {content}
+          </Link>
+        ) : (
+          <Text color="gray.600" whiteSpace="pre-line">
+            {content}
+          </Text>
+        )}
+      </VStack>
+    </Box>
+  );
 }
 
-export default function Contact() {
-  const accentColor = "#F68B23"; // accent color
-  const formBg = "#2D3748"; // form box background
+export default function Contato() {
+  const [contatos, setContatos] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const carregarContatos = async () => {
+      try {
+        setLoading(true);
+        const response = await apiService.getContatos();
+        
+        if (response.success && response.data) {
+          setContatos(response.data);
+        } else {
+          setError('Não foi possível carregar as informações de contato.');
+        }
+      } catch (error) {
+        console.error('Erro ao carregar contatos:', error);
+        setError('Não foi possível carregar as informações de contato.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    carregarContatos();
+  }, []);
+
+  if (loading) {
+    return (
+      <Box py={20}>
+        <Container maxW="7xl">
+          <VStack spacing={8}>
+            <Heading fontSize={{ base: '4xl', md: '5xl' }}>Contato</Heading>
+            <Spinner size="xl" color="red.500" thickness="4px" />
+            <Text>Carregando informações de contato...</Text>
+          </VStack>
+        </Container>
+      </Box>
+    );
+  }
+
+  if (error) {
+    return (
+      <Box py={20}>
+        <Container maxW="7xl">
+          <VStack spacing={8}>
+            <Heading fontSize={{ base: '4xl', md: '5xl' }}>Contato</Heading>
+            <Alert status="error" borderRadius="lg">
+              <AlertIcon />
+              <Box>
+                <AlertTitle>Erro ao carregar contatos!</AlertTitle>
+                <AlertDescription>{error}</AlertDescription>
+              </Box>
+            </Alert>
+          </VStack>
+        </Container>
+      </Box>
+    );
+  }
+
+  const contactInfo = [
+    {
+      icon: FaEnvelope,
+      title: 'Email',
+      content: contatos.email,
+      link: `mailto:${contatos.email}`
+    },
+    {
+      icon: FaPhone,
+      title: 'Telefone',
+      content: contatos.telefone,
+      link: `tel:${contatos.telefone.replace(/[^\d]/g, '')}`
+    },
+    {
+      icon: FaMapMarkerAlt,
+      title: 'Endereço',
+      content: contatos.endereco,
+      link: null
+    },
+    {
+      icon: FaClock,
+      title: 'Horário de Funcionamento',
+      content: contatos.horarioFuncionamento,
+      link: null
+    }
+  ];
+
+  const socialLinks = [];
+  
+  if (contatos.redesSociais.linkedin) {
+    socialLinks.push({
+      icon: FaLinkedin,
+      title: 'LinkedIn',
+      content: contatos.redesSociais.linkedin.replace('https://', ''),
+      link: contatos.redesSociais.linkedin
+    });
+  }
+
+  if (contatos.redesSociais.instagram) {
+    socialLinks.push({
+      icon: FaInstagram,
+      title: 'Instagram',
+      content: contatos.redesSociais.instagram.replace('https://', ''),
+      link: contatos.redesSociais.instagram
+    });
+  }
+
+  if (contatos.redesSociais.twitter) {
+    socialLinks.push({
+      icon: FaTwitter,
+      title: 'Twitter',
+      content: contatos.redesSociais.twitter.replace('https://', ''),
+      link: contatos.redesSociais.twitter
+    });
+  }
 
   return (
-    <>
-      <Container maxW="full" mt={0} centerContent overflow="hidden">
-        <Flex>
-          <Box
-            // color="white"
-            borderRadius="lg"
-            m={{ sm: 2, md: 8, lg: 6 }}
-            p={{ sm: 3, md: 4, lg: 8 }}
-          >
-            <Box p={4}>
-              <Wrap spacing={{ base: 20, sm: 3, md: 5, lg: 20 }}>
-                <WrapItem>
-                  <Box>
-                    <Heading>Entre em Contato</Heading>
-                    <Box py={{ base: 5, sm: 5, md: 8, lg: 10 }}>
-                      <Text mb={5}>
-                        Caso queira fazer contato conosco, preencha o formulário
-                        abaixo com seu nome, email, e mensagem. Responderemos
-                        assim que possível!
-                      </Text>
-                      <Box p={6} borderRadius="md">
-                        <form onSubmit={handleEmailSubmission}>
-                          <FormControl isRequired mb={4}>
-                            <FormLabel>Nome</FormLabel>
-                            <Input
-                              placeholder="Seu nome"
-                              name="name"
-                              type="text"
-                              color="white"
-                            />
-                          </FormControl>
-
-                          <FormControl isRequired mb={4}>
-                            <FormLabel>Email</FormLabel>
-                            <Input
-                              placeholder="seuemail@exemplo.com"
-                              name="email"
-                              type="email"
-                              color="white"
-                            />
-                          </FormControl>
-
-                          <FormControl isRequired mb={4}>
-                            <FormLabel>Mensagem</FormLabel>
-                            <Textarea
-                              placeholder="Digite sua mensagem..."
-                              name="message"
-                              color="white"
-                              rows={5}
-                            />
-                          </FormControl>
-
-                          <Button
-                            type="submit"
-                            bg={accentColor}
-                            color="white"
-                            _hover={{ bg: "#e07b1f" }}
-                            variant="solid"
-                            w="full"
-                            mt={4}
-                          >
-                            Enviar
-                          </Button>
-                        </form>
-                      </Box>
-                    </Box>
-
-                    <Box mt={10}>
-                      <Text fontWeight="bold" mb={4}>
-                        Ou, se preferir, entre em contato pelas nossas redes:
-                      </Text>
-                      <HStack alignItems="center" justifyContent="center">
-                        <Link isExternal href="https://discord.gg/jdK5yB48Mm">
-                          <IconButton
-                            aria-label="discord"
-                            variant="ghost"
-                            size="lg"
-                            isRound={true}
-                            _hover={{ bg: accentColor }}
-                            icon={<BsDiscord size="28px" />}
-                          />
-                        </Link>
-                        <Link isExternal href="mailto:blockchainsper@gmail.com">
-                          <IconButton
-                            aria-label="email"
-                            variant="ghost"
-                            size="lg"
-                            isRound={true}
-                            _hover={{ bg: accentColor }}
-                            icon={<MdOutlineEmail size="28px" />}
-                          />
-                        </Link>
-                        <Link
-                          isExternal
-                          href="https://www.linkedin.com/company/blockchain-insper/"
-                        >
-                          <IconButton
-                            aria-label="linkedin"
-                            variant="ghost"
-                            size="lg"
-                            isRound={true}
-                            _hover={{ bg: accentColor }}
-                            icon={<BsLinkedin size="28px" />}
-                          />
-                        </Link>
-                        <Link
-                          isExternal
-                          href="https://www.instagram.com/blockchainsper/"
-                        >
-                          <IconButton
-                            aria-label="instagram"
-                            variant="ghost"
-                            size="lg"
-                            isRound={true}
-                            _hover={{ bg: accentColor }}
-                            icon={<BsInstagram size="28px" />}
-                          />
-                        </Link>
-                      </HStack>
-                    </Box>
-                  </Box>
-                </WrapItem>
-              </Wrap>
-            </Box>
-          </Box>
-        </Flex>
-      </Container>
-
-      <Box maxWidth="container.xl" mx="auto">
-        <Separator width={["90%", "80%", "70%"]} mx="auto" />
+    <Box>
+      {/* Hero Section */}
+      <Box
+        py={20}
+        bg="gray.900"
+        color="white"
+      >
+        <Container maxW="7xl">
+          <VStack spacing={6} textAlign="center">
+            <Heading
+              fontSize={{ base: '4xl', md: '5xl', lg: '6xl' }}
+              fontWeight="bold"
+            >
+              Contato
+            </Heading>
+            <Text
+              fontSize={{ base: 'lg', md: 'xl' }}
+              maxW="3xl"
+              color="gray.300"
+            >
+              Entre em contato conosco para parcerias, colaborações ou 
+              para conhecer mais sobre nosso trabalho
+            </Text>
+          </VStack>
+        </Container>
       </Box>
 
-      <Flex>
-        <Box
-          borderRadius="lg"
-          justifyContent="center"
-          w={1000}
-          m={{ sm: 4, md: 16, lg: 50 }}
-          p={{ sm: 5, md: 5, lg: 5 }}
-        >
-          <AspectRatio ratio={16 / 9}>
-            <iframe
-              title="Localização"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1828.0847263800329!2d-46.67881990221802!3d-23.598254999967665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce575374b7481f%3A0x50e5aad2656c43ed!2sInsper%20Learning%20Institution!5e0!3m2!1sen!2sbr!4v1586359937804!5m2!1sen!2sbr"
-              alt="Localização"
-            />
-          </AspectRatio>
-        </Box>
-        <Center alignItems="center" justifyContent="center">
-          <Stack>
-            <Heading
-              lineHeight={1.1}
-              fontWeight={600}
-              fontSize={{ base: "1xl", sm: "2xl", lg: "3xl" }}
-            >
-              <Text
-                as={"span"}
-                position={"relative"}
-                _after={{
-                  content: "''",
-                  width: "full",
-                  height: "30%",
-                  position: "absolute",
-                  bottom: 1,
-                  left: 0,
-                  bg: accentColor,
-                  zIndex: -1,
-                }}
+      {/* Informações de Contato */}
+      <Box py={20} bg="gray.50">
+        <Container maxW="7xl">
+          <VStack spacing={12}>
+            <Stack textAlign="center" spacing={4}>
+              <Heading
+                fontSize={{ base: '3xl', md: '4xl' }}
+                color="gray.900"
+                fontWeight="bold"
               >
-                Venha conhecer a Blockchain Insper e o Insper!
+                Informações de Contato
+              </Heading>
+              <Text fontSize="lg" color="gray.600">
+                Principais canais para entrar em contato com nossa equipe
               </Text>
-            </Heading>
-            <Text fontWeight="bold">
-              Aberto de Segunda à Sexta das 07:00 às 23:00
-            </Text>
-          </Stack>
-        </Center>
-      </Flex>
-    </>
+            </Stack>
+            
+            <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={8} w="full">
+              {contactInfo.map((info, index) => (
+                <ContactCard
+                  key={index}
+                  icon={info.icon}
+                  title={info.title}
+                  content={info.content}
+                  link={info.link}
+                />
+              ))}
+            </SimpleGrid>
+          </VStack>
+        </Container>
+      </Box>
+
+      {/* Redes Sociais */}
+      {socialLinks.length > 0 && (
+        <Box py={20} bg="white">
+          <Container maxW="7xl">
+            <VStack spacing={12}>
+              <Stack textAlign="center" spacing={4}>
+                <Heading
+                  fontSize={{ base: '3xl', md: '4xl' }}
+                  color="gray.900"
+                  fontWeight="bold"
+                >
+                  Siga-nos nas Redes Sociais
+                </Heading>
+                <Text fontSize="lg" color="gray.600">
+                  Acompanhe nossas atividades e novidades
+                </Text>
+              </Stack>
+              
+              <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8} w="full">
+                {socialLinks.map((social, index) => (
+                  <ContactCard
+                    key={index}
+                    icon={social.icon}
+                    title={social.title}
+                    content={social.content}
+                    link={social.link}
+                  />
+                ))}
+              </SimpleGrid>
+            </VStack>
+          </Container>
+        </Box>
+      )}
+
+      {/* Localização */}
+      <Box py={20} bg="gray.50">
+        <Container maxW="7xl">
+          <VStack spacing={12}>
+            <Stack textAlign="center" spacing={4}>
+              <Heading
+                fontSize={{ base: '3xl', md: '4xl' }}
+                color="gray.900"
+                fontWeight="bold"
+              >
+                Localização
+              </Heading>
+              <Text fontSize="lg" color="gray.600">
+                Encontre-nos no campus do Insper
+              </Text>
+            </Stack>
+            
+            <Box
+              w="full"
+              h="400px"
+              borderRadius="xl"
+              overflow="hidden"
+              shadow="lg"
+            >
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.398494477805!2d-46.67754842370871!3d-23.599496862507894!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce5a9c1fb0c1a3%3A0x1b8c9f8b5c8f9b8!2sInsper%20Instituto%20de%20Ensino%20e%20Pesquisa!5e0!3m2!1spt!2sbr!4v1703000000000!5m2!1spt!2sbr"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Localização do Insper"
+              />
+            </Box>
+          </VStack>
+        </Container>
+      </Box>
+    </Box>
   );
 }
