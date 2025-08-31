@@ -103,7 +103,8 @@ export default function Contato() {
   const [mensagem, setMensagem] = useState("");
   const [contatos, setContatos] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null); // texto de erro (opcional)
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState(null);
   const defaultContatos = {
     email: "contato@insper.edu.br",
     telefone: "(11) 4000-0000",
@@ -144,19 +145,57 @@ export default function Contato() {
     carregarContatos();
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // simulação de envio — não há backend por enquanto
-    toast({
-      title: "Mensagem enviada (simulação)",
-      description: "Sua mensagem foi preparada, mas o envio real não está configurado.",
-      status: "success",
-      duration: 3500,
-      isClosable: true,
-    });
-    setNome("");
-    setEmail("");
-    setMensagem("");
+    
+    if (!nome.trim() || !email.trim() || !mensagem.trim()) {
+      toast({
+        title: "Campos obrigatórios",
+        description: "Por favor, preencha todos os campos.",
+        status: "warning",
+        duration: 3000,
+        isClosable: true,
+      });
+      return;
+    }
+
+    try {
+      setSubmitting(true);
+      
+      const response = await apiService.enviarMensagemContato({
+        nome: nome.trim(),
+        email: email.trim(),
+        mensagem: mensagem.trim()
+      });
+
+      if (response.success) {
+        toast({
+          title: "Mensagem enviada com sucesso!",
+          description: response.message,
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+        
+        // Limpar formulário
+        setNome("");
+        setEmail("");
+        setMensagem("");
+      } else {
+        throw new Error(response.message || 'Erro ao enviar mensagem');
+      }
+    } catch (error) {
+      console.error('Erro ao enviar mensagem:', error);
+      toast({
+        title: "Erro ao enviar mensagem",
+        description: error.message || "Tente novamente mais tarde.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   if (loading) {
@@ -371,8 +410,14 @@ export default function Contato() {
             </SimpleGrid>
 
             <Stack direction="row" justify="flex-end" mt={4}>
-              <Button type="submit" colorScheme="orange">
-                Enviar (simulação)
+              <Button 
+                type="submit" 
+                colorScheme="brand" 
+                isLoading={submitting}
+                loadingText="Enviando..."
+                disabled={submitting}
+              >
+                Enviar Mensagem
               </Button>
             </Stack>
           </Box>

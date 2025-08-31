@@ -20,7 +20,7 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
 } from "@chakra-ui/icons";
-import LogoLight from "../assets/logo-light.svg";
+import Logo from "../../src/assets/logo.jpg";
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
@@ -28,14 +28,14 @@ export default function WithSubnavigation() {
   return (
     <Box>
       <Flex
-        bg={"white"}
-        color={"gray.600"}
-        minH={"60px"}
+        bg={"gray.900"}
+        color={"white"}
+        minH={"70px"}
         py={{ base: 2 }}
         px={{ base: 4 }}
         borderBottom={1}
         borderStyle={"solid"}
-        borderColor={"gray.200"}
+        borderColor={"gray.700"}
         align={"center"}
       >
         <Flex
@@ -52,11 +52,11 @@ export default function WithSubnavigation() {
             aria-label={"Toggle Navigation"}
           />
         </Flex>
-        <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
+        <Flex flex={{ base: 1 }} justify={{ base: "center", md: "space-between" }} align="center">
           <Link href="/">
-            <Image src={LogoLight} width="100px" />
+            <Image src={Logo} width="120px" height="50px" objectFit="contain" />
           </Link>
-          <Flex display={{ base: "none", md: "flex" }} ml={10}>
+          <Flex display={{ base: "none", md: "flex" }}>
             <DesktopNav />
           </Flex>
         </Flex>
@@ -72,9 +72,9 @@ export default function WithSubnavigation() {
 }
 
 const DesktopNav = () => {
-  const linkColor = "gray.600";
-  const linkHoverColor = "gray.800";
-  const popoverContentBgColor = "white";
+  const linkColor = "white";
+  const linkHoverColor = "brand.400";
+  const popoverContentBgColor = "gray.800";
 
   return (
     <Stack direction={"row"} spacing={4}>
@@ -128,18 +128,19 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
       display={"block"}
       p={2}
       rounded={"md"}
-      _hover={{ bg: "#f7e2dc" }}
+      _hover={{ bg: "gray.700" }}
     >
       <Stack direction={"row"} align={"center"}>
         <Box>
           <Text
             transition={"all .3s ease"}
-            _groupHover={{ color: "#f68b23" }}
+            _groupHover={{ color: "brand.400" }}
             fontWeight={500}
+            color="white"
           >
             {label}
           </Text>
-          <Text fontSize={"sm"}>{subLabel}</Text>
+          <Text fontSize={"sm"} color="gray.300">{subLabel}</Text>
         </Box>
         <Flex
           transition={"all .3s ease"}
@@ -150,7 +151,7 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
           align={"center"}
           flex={1}
         >
-          <Icon color={"#f68b23"} w={5} h={5} as={ChevronRightIcon} />
+          <Icon color={"brand.400"} w={5} h={5} as={ChevronRightIcon} />
         </Flex>
       </Stack>
     </Link>
@@ -159,7 +160,7 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
 
 const MobileNav = () => {
   return (
-    <Stack bg={"white"} p={4} display={{ md: "none" }}>
+    <Stack bg={"gray.800"} p={4} display={{ md: "none" }}>
       {NAV_ITEMS.map((navItem) => (
         <MobileNavItem key={navItem.label} {...navItem} />
       ))}
@@ -182,7 +183,7 @@ const MobileNavItem = ({ label, children, href }) => {
           textDecoration: "none",
         }}
       >
-        <Text fontWeight={600} color={"gray.600"}>
+        <Text fontWeight={600} color={"white"}>
           {label}
         </Text>
         {children && (
@@ -202,12 +203,12 @@ const MobileNavItem = ({ label, children, href }) => {
           pl={4}
           borderLeft={1}
           borderStyle={"solid"}
-          borderColor={"gray.200"}
+          borderColor={"gray.600"}
           align={"start"}
         >
           {children &&
             children.map((child) => (
-              <Link key={child.label} py={2} href={child.href}>
+              <Link key={child.label} py={2} href={child.href} color="gray.300" _hover={{ color: "brand.400" }}>
                 {child.label}
               </Link>
             ))}

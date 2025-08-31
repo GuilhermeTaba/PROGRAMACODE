@@ -102,19 +102,32 @@ function NoticiaCard({ noticia }) {
             )}
           </VStack>
 
-          {noticia.link && (
-            <Link href={noticia.link} isExternal w="full">
+          <VStack spacing={2} w="full">
+            <Button
+              colorScheme="red"
+              variant="outline"
+              size="sm"
+              w="full"
+              onClick={() => window.location.href = `/noticias/${noticia.id}`}
+            >
+              Ler mais
+            </Button>
+            {noticia.link && (
               <Button
+                as="a"
+                href={noticia.link}
+                target="_blank"
+                rel="noopener noreferrer"
                 colorScheme="red"
-                variant="outline"
+                variant="ghost"
                 size="sm"
                 rightIcon={<FaExternalLinkAlt />}
                 w="full"
               >
-                Ler mais
+                Link original
               </Button>
-            </Link>
-          )}
+            )}
+          </VStack>
         </VStack>
       </Box>
     </Box>

@@ -12,6 +12,7 @@ import {
   Badge,
   useColorModeValue,
   Divider,
+  Button,
   Spinner,
   Alert,
   AlertIcon,
@@ -106,6 +107,17 @@ function EventCard({ evento }) {
               </HStack>
             )}
           </VStack>
+
+          {/* Botão Ver Detalhes */}
+          <Button
+            colorScheme="red"
+            variant="outline"
+            size="sm"
+            w="full"
+            onClick={() => window.location.href = `/eventos/${evento.id}`}
+          >
+            Ver Detalhes
+          </Button>
         </VStack>
       </Box>
     </Box>

@@ -4,7 +4,9 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Eventos from "./pages/Eventos";
+import EventoDetalhes from "./pages/EventoDetalhes";
 import Noticias from "./pages/Noticias";
+import NoticiaDetalhes from "./pages/NoticiaDetalhes";
 import Contato from "./pages/Contato";
 import Parcerias from "./pages/Parcerias";
 
@@ -20,6 +22,7 @@ import GerenciarNoticias from "./pages/admin/GerenciarNoticias";
 import FormNoticia from "./pages/admin/FormNoticia";
 import GerenciarContatos from "./pages/admin/GerenciarContatos";
 import GerenciarAdmins from "./pages/admin/GerenciarAdmins";
+import GerenciarMensagens from "./pages/admin/GerenciarMensagens";
 import ConfiguracoesPerfil from "./pages/admin/ConfiguracoesPerfil";
 import GerenciarBackups from "./pages/admin/GerenciarBackups";
 
@@ -85,10 +88,24 @@ function App() {
               <Footer />
             </>
           } />
+          <Route path="/eventos/:id" element={
+            <>
+              <Navbar />
+              <EventoDetalhes />
+              <Footer />
+            </>
+          } />
           <Route path="/noticias" element={
             <>
               <Navbar />
               <Noticias />
+              <Footer />
+            </>
+          } />
+          <Route path="/noticias/:id" element={
+            <>
+              <Navbar />
+              <NoticiaDetalhes />
               <Footer />
             </>
           } />
@@ -193,6 +210,14 @@ function App() {
             <PrivateRoute>
               <AdminLayout>
                 <GerenciarAdmins />
+              </AdminLayout>
+            </PrivateRoute>
+          } />
+          
+          <Route path="/admin/mensagens" element={
+            <PrivateRoute>
+              <AdminLayout>
+                <GerenciarMensagens />
               </AdminLayout>
             </PrivateRoute>
           } />

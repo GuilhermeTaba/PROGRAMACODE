@@ -221,6 +221,34 @@ class ApiService {
     });
   }
 
+  // Enviar mensagem de contato
+  async enviarMensagemContato(dadosMensagem) {
+    return this.request('/contatos/mensagem', {
+      method: 'POST',
+      body: JSON.stringify(dadosMensagem),
+    });
+  }
+
+  // Mensagens - Admin
+  async getMensagens() {
+    return this.request('/contatos/mensagens', { auth: true });
+  }
+
+  async updateMensagem(id, dadosMensagem) {
+    return this.request(`/contatos/mensagens/${id}`, {
+      method: 'PUT',
+      auth: true,
+      body: JSON.stringify(dadosMensagem),
+    });
+  }
+
+  async deleteMensagem(id) {
+    return this.request(`/contatos/mensagens/${id}`, {
+      method: 'DELETE',
+      auth: true,
+    });
+  }
+
   // Administradores
   async getAdmins() {
     return this.request('/admins', { auth: true });
