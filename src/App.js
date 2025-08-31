@@ -1,5 +1,5 @@
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -117,6 +117,9 @@ function App() {
               <Footer />
             </>
           } />
+
+          {/* Redirect /dashboard to /admin/dashboard */}
+          <Route path="/dashboard" element={<Navigate to="/admin/dashboard" replace />} />
 
           {/* Rota de Login Admin */}
           <Route path="/admin/login" element={<Login />} />

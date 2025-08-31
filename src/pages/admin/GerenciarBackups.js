@@ -12,7 +12,6 @@ import {
   Tr,
   Th,
   Td,
-  Badge,
   IconButton,
   useToast,
   AlertDialog,
@@ -24,16 +23,21 @@ import {
   useDisclosure,
   Spinner,
   Center,
-  Alert,
-  AlertIcon,
+  Badge,
   Tooltip,
+  Stat,
+  StatLabel,
+  StatNumber,
+  StatHelpText,
+  Flex,
 } from '@chakra-ui/react';
 import { 
   FaDownload, 
   FaUpload, 
   FaTrash,
-  FaClock,
-  FaDatabase
+  FaHistory,
+  FaDatabase,
+  FaExclamationTriangle
 } from 'react-icons/fa';
 import { useState, useEffect, useRef } from 'react';
 import apiService from '../../services/api';
@@ -41,8 +45,9 @@ import apiService from '../../services/api';
 export default function GerenciarBackups() {
   const [backups, setBackups] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [actionLoading, setActionLoading] = useState(false);
-  const [selectedBackup, setSelectedBackup] = useState(null);
+  const [createLoading, setCreateLoading] = useState(false);
+  const [restoreLoading, setRestoreLoading] = useState(false);
+  const [backupToRestore, setBackupToRestore] = useState(null);
   
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef();
@@ -56,9 +61,7 @@ export default function GerenciarBackups() {
     try {
       setLoading(true);
       const response = await apiService.getBackups();
-      if (response.success) {
-        setBackups(response.data);
-      }
+      setBackups(response.data || []);
     } catch (error) {
       toast({
         title: 'Erro ao carregar backups',
@@ -74,19 +77,16 @@ export default function GerenciarBackups() {
 
   const handleCreateBackup = async () => {
     try {
-      setActionLoading(true);
-      const response = await apiService.createBackup();
-      
-      if (response.success) {
-        toast({
-          title: 'Backup criado com sucesso',
-          description: `Arquivo: ${response.data.filename}`,
-          status: 'success',
-          duration: 5000,
-          isClosable: true,
-        });
-        await loadBackups();
-      }
+      setCreateLoading(true);
+      await apiService.createBackup();
+      toast({
+        title: 'Backup criado com sucesso',
+        description: 'Os dados foram salvos com segurança',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      });
+      await loadBackups(); // Recarregar lista
     } catch (error) {
       toast({
         title: 'Erro ao criar backup',
@@ -96,28 +96,25 @@ export default function GerenciarBackups() {
         isClosable: true,
       });
     } finally {
-      setActionLoading(false);
+      setCreateLoading(false);
     }
   };
 
-  const handleRestoreBackup = async () => {
-    if (!selectedBackup) return;
+  const handleRestore = async () => {
+    if (!backupToRestore) return;
 
     try {
-      setActionLoading(true);
-      const response = await apiService.restoreBackup(selectedBackup.filename);
-      
-      if (response.success) {
-        toast({
-          title: 'Backup restaurado com sucesso',
-          description: `Dados restaurados de: ${selectedBackup.filename}`,
-          status: 'success',
-          duration: 5000,
-          isClosable: true,
-        });
-        await loadBackups();
-        onClose();
-      }
+      setRestoreLoading(true);
+      await apiService.restoreBackup(backupToRestore.filename);
+      toast({
+        title: 'Backup restaurado com sucesso',
+        description: 'Os dados foram restaurados. Um backup dos dados atuais foi criado automaticamente.',
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+      });
+      await loadBackups(); // Recarregar lista
+      onClose();
     } catch (error) {
       toast({
         title: 'Erro ao restaurar backup',
@@ -127,12 +124,12 @@ export default function GerenciarBackups() {
         isClosable: true,
       });
     } finally {
-      setActionLoading(false);
+      setRestoreLoading(false);
     }
   };
 
   const openRestoreDialog = (backup) => {
-    setSelectedBackup(backup);
+    setBackupToRestore(backup);
     onOpen();
   };
 
@@ -146,9 +143,9 @@ export default function GerenciarBackups() {
 
   if (loading) {
     return (
-      <Center h="400px">
+      <Center h="50vh">
         <VStack spacing={4}>
-          <Spinner size="xl" color="red.500" thickness="4px" />
+          <Spinner size="xl" color="brand.500" />
           <Text>Carregando backups...</Text>
         </VStack>
       </Center>
@@ -157,109 +154,188 @@ export default function GerenciarBackups() {
 
   return (
     <Container maxW="7xl" py={8}>
-      <VStack spacing={8} align="stretch">
-        <HStack justify="space-between">
-          <Box>
-            <Heading size="lg" mb={2}>Gerenciar Backups</Heading>
+      <VStack spacing={6} align="stretch">
+        {/* Header */}
+        <HStack justify="space-between" align="center">
+          <VStack align="start" spacing={1}>
+            <Heading size="xl" color="gray.900">
+              Gerenciar Backups
+            </Heading>
             <Text color="gray.600">
-              Crie e restaure backups dos dados do sistema
+              {backups.length} backup{backups.length !== 1 ? 's' : ''} disponível{backups.length !== 1 ? 'eis' : ''}
             </Text>
-          </Box>
+          </VStack>
           
           <Button
             leftIcon={<FaDatabase />}
-            colorScheme="red"
+            colorScheme="brand"
             onClick={handleCreateBackup}
-            isLoading={actionLoading}
+            isLoading={createLoading}
             loadingText="Criando..."
           >
             Criar Backup
           </Button>
         </HStack>
 
-        {backups.length === 0 ? (
-          <Alert status="info" borderRadius="lg">
-            <AlertIcon />
-            <Box>
-              <Text fontWeight="medium">Nenhum backup encontrado</Text>
+        {/* Informações importantes */}
+        <Box
+          bg="white"
+          borderRadius="lg"
+          border="1px"
+          borderColor="gray.200"
+          p={6}
+        >
+          <VStack align="start" spacing={3}>
+            <HStack>
+              <FaExclamationTriangle color="#E53E3E" />
+              <Heading size="md" color="gray.900">
+                Informações Importantes
+              </Heading>
+            </HStack>
+            <VStack align="start" spacing={2} pl={6}>
               <Text fontSize="sm" color="gray.600">
-                Clique em "Criar Backup" para fazer seu primeiro backup dos dados
+                • Os backups incluem todos os eventos e notícias cadastrados no sistema
               </Text>
+              <Text fontSize="sm" color="gray.600">
+                • Ao restaurar um backup, os dados atuais serão substituídos
+              </Text>
+              <Text fontSize="sm" color="gray.600">
+                • Um backup automático dos dados atuais será criado antes da restauração
+              </Text>
+              <Text fontSize="sm" color="gray.600">
+                • Recomenda-se criar backups regularmente para evitar perda de dados
+              </Text>
+            </VStack>
+          </VStack>
+        </Box>
+
+        {/* Estatísticas */}
+        {backups.length > 0 && (
+          <Flex gap={4} wrap="wrap">
+            <Box
+              flex="1"
+              minW="200px"
+              bg="white"
+              borderRadius="lg"
+              border="1px"
+              borderColor="gray.200"
+              p={6}
+            >
+              <Stat>
+                <StatLabel>Total de Backups</StatLabel>
+                <StatNumber>{backups.length}</StatNumber>
+                <StatHelpText>Arquivos disponíveis</StatHelpText>
+              </Stat>
             </Box>
-          </Alert>
-        ) : (
-          <Box overflowX="auto" bg="white" borderRadius="lg" shadow="sm">
-            <Table variant="simple">
-              <Thead bg="gray.50">
-                <Tr>
-                  <Th>Arquivo</Th>
-                  <Th>Data de Criação</Th>
-                  <Th>Tipo</Th>
-                  <Th>Ações</Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                {backups.map((backup, index) => (
-                  <Tr key={backup.filename}>
-                    <Td>
-                      <VStack align="start" spacing={1}>
-                        <Text fontWeight="medium" fontSize="sm">
-                          {backup.filename}
-                        </Text>
-                        <HStack spacing={2}>
-                          <Badge 
-                            size="sm"
-                            colorScheme={backup.filename.includes('before-restore') ? 'orange' : 'blue'}
-                            variant="subtle"
-                          >
-                            {backup.filename.includes('before-restore') ? 'Auto Backup' : 'Manual'}
-                          </Badge>
-                        </HStack>
-                      </VStack>
-                    </Td>
-                    <Td>
-                      <HStack spacing={2}>
-                        <FaClock color="gray" size={12} />
-                        <Text fontSize="sm">{backup.date}</Text>
-                      </HStack>
-                    </Td>
-                    <Td>
-                      <Badge colorScheme="green" variant="subtle">
-                        Completo
-                      </Badge>
-                    </Td>
-                    <Td>
-                      <HStack spacing={1}>
-                        <Tooltip label="Restaurar Backup">
-                          <IconButton
-                            icon={<FaUpload />}
-                            size="sm"
-                            variant="ghost"
-                            colorScheme="blue"
-                            onClick={() => openRestoreDialog(backup)}
-                            isDisabled={actionLoading}
-                          />
-                        </Tooltip>
-                      </HStack>
-                    </Td>
-                  </Tr>
-                ))}
-              </Tbody>
-            </Table>
-          </Box>
+            
+            <Box
+              flex="1"
+              minW="200px"
+              bg="white"
+              borderRadius="lg"
+              border="1px"
+              borderColor="gray.200"
+              p={6}
+            >
+              <Stat>
+                <StatLabel>Backup Mais Recente</StatLabel>
+                <StatNumber fontSize="md">{backups[0]?.date || 'N/A'}</StatNumber>
+                <StatHelpText>Último backup criado</StatHelpText>
+              </Stat>
+            </Box>
+          </Flex>
         )}
 
-        {/* Informações */}
-        <Box bg="blue.50" p={4} borderRadius="lg" border="1px" borderColor="blue.200">
-          <Heading size="sm" color="blue.800" mb={2}>
-            ℹ️ Informações Importantes
-          </Heading>
-          <VStack align="start" spacing={2} fontSize="sm" color="blue.700">
-            <Text>• Os backups incluem todos os eventos e notícias do sistema</Text>
-            <Text>• Antes de restaurar um backup, o sistema cria automaticamente um backup dos dados atuais</Text>
-            <Text>• A restauração substitui completamente os dados atuais</Text>
-            <Text>• Recomenda-se criar backups regularmente, especialmente antes de grandes alterações</Text>
-          </VStack>
+        {/* Tabela de Backups */}
+        <Box
+          bg="white"
+          borderRadius="lg"
+          border="1px"
+          borderColor="gray.200"
+          overflow="hidden"
+        >
+          <Table variant="simple">
+            <Thead bg="gray.50">
+              <Tr>
+                <Th>Data/Hora</Th>
+                <Th>Nome do Arquivo</Th>
+                <Th>Status</Th>
+                <Th>Ações</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {backups.map((backup, index) => (
+                <Tr key={backup.filename}>
+                  <Td>
+                    <VStack align="start" spacing={1}>
+                      <Text fontWeight="semibold" fontSize="sm">
+                        {backup.date}
+                      </Text>
+                      <Text fontSize="xs" color="gray.500">
+                        {backup.timestamp}
+                      </Text>
+                    </VStack>
+                  </Td>
+                  <Td>
+                    <Text fontSize="sm" fontFamily="mono" color="gray.700">
+                      {backup.filename}
+                    </Text>
+                  </Td>
+                  <Td>
+                    <VStack align="start" spacing={1}>
+                      <Badge
+                        colorScheme="green"
+                        variant="solid"
+                      >
+                        Disponível
+                      </Badge>
+                      {index === 0 && (
+                        <Badge colorScheme="blue" variant="outline" fontSize="xs">
+                          Mais Recente
+                        </Badge>
+                      )}
+                    </VStack>
+                  </Td>
+                  <Td>
+                    <HStack spacing={1}>
+                      <Tooltip label="Restaurar backup">
+                        <IconButton
+                          icon={<FaHistory />}
+                          size="sm"
+                          colorScheme="blue"
+                          variant="ghost"
+                          onClick={() => openRestoreDialog(backup)}
+                        />
+                      </Tooltip>
+                    </HStack>
+                  </Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+
+          {backups.length === 0 && (
+            <Box p={10} textAlign="center">
+              <VStack spacing={4}>
+                <FaDatabase size="48" color="#CBD5E0" />
+                <Text color="gray.500" fontSize="lg">
+                  Nenhum backup encontrado
+                </Text>
+                <Text color="gray.400" fontSize="sm">
+                  Crie seu primeiro backup para proteger os dados do sistema
+                </Text>
+                <Button
+                  leftIcon={<FaDatabase />}
+                  colorScheme="brand"
+                  onClick={handleCreateBackup}
+                  isLoading={createLoading}
+                  loadingText="Criando..."
+                >
+                  Criar Primeiro Backup
+                </Button>
+              </VStack>
+            </Box>
+          )}
         </Box>
       </VStack>
 
@@ -278,15 +354,27 @@ export default function GerenciarBackups() {
             <AlertDialogBody>
               <VStack align="start" spacing={3}>
                 <Text>
-                  Tem certeza que deseja restaurar o backup <strong>{selectedBackup?.filename}</strong>?
+                  Tem certeza que deseja restaurar o backup de <strong>{backupToRestore?.date}</strong>?
                 </Text>
-                <Alert status="warning" borderRadius="md">
-                  <AlertIcon />
-                  <Box fontSize="sm">
-                    <Text fontWeight="medium">Atenção:</Text>
-                    <Text>Esta ação irá substituir todos os dados atuais pelos dados do backup selecionado. Um backup automático dos dados atuais será criado antes da restauração.</Text>
-                  </Box>
-                </Alert>
+                <Box bg="yellow.50" p={3} borderRadius="md" border="1px" borderColor="yellow.200">
+                  <HStack align="start" spacing={2}>
+                    <FaExclamationTriangle color="#D69E2E" />
+                    <VStack align="start" spacing={1}>
+                      <Text fontSize="sm" fontWeight="semibold" color="yellow.800">
+                        Atenção:
+                      </Text>
+                      <Text fontSize="sm" color="yellow.700">
+                        • Todos os dados atuais serão substituídos
+                      </Text>
+                      <Text fontSize="sm" color="yellow.700">
+                        • Um backup automático será criado antes da restauração
+                      </Text>
+                      <Text fontSize="sm" color="yellow.700">
+                        • Esta ação não pode ser desfeita
+                      </Text>
+                    </VStack>
+                  </HStack>
+                </Box>
               </VStack>
             </AlertDialogBody>
 
@@ -294,12 +382,13 @@ export default function GerenciarBackups() {
               <Button ref={cancelRef} onClick={onClose}>
                 Cancelar
               </Button>
-              <Button 
-                colorScheme="blue" 
-                onClick={handleRestoreBackup}
+              <Button
+                colorScheme="blue"
+                onClick={handleRestore}
                 ml={3}
-                isLoading={actionLoading}
+                isLoading={restoreLoading}
                 loadingText="Restaurando..."
+                leftIcon={<FaHistory />}
               >
                 Restaurar
               </Button>
