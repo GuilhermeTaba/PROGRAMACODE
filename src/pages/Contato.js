@@ -203,7 +203,18 @@ export default function Contato() {
       <Box py={20}>
         <Container maxW="7xl">
           <VStack spacing={8}>
-            <Heading fontSize={{ base: "4xl", md: "5xl" }}>Contato</Heading>
+            <Heading
+              as="h1"
+              fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}
+              fontWeight="700"
+              letterSpacing="tight"
+              bgGradient="linear(to-r, #ff2a2a, #a80000)"
+              bgClip="text"
+              display="inline-block"
+              fontFamily={"'Inter', 'Poppins', 'Roboto', system-ui, sans-serif"}
+            >
+              Contato
+            </Heading>
           </VStack>
         </Container>
       </Box>
