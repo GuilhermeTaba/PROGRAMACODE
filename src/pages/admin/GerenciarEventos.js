@@ -256,7 +256,7 @@ export default function GerenciarEventos() {
                           size="sm"
                           colorScheme="blue"
                           variant="ghost"
-                          onClick={() => window.open(`#/eventos`, '_blank')}
+                          onClick={() => window.open(`/eventos/${evento.id}`, '_blank')}
                         />
                       </Tooltip>
                       <Tooltip label={evento.destaque ? 'Remover destaque' : 'Destacar'}>

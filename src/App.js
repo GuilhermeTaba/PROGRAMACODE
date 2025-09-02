@@ -1,11 +1,14 @@
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Eventos from "./pages/Eventos";
+import EventoDetalhes from "./pages/EventoDetalhes";
 import Noticias from "./pages/Noticias";
+import NoticiaDetalhes from "./pages/NoticiaDetalhes";
 import Contato from "./pages/Contato";
+import Parcerias from "./pages/Parcerias";
 
 // Admin components
 import { AuthProvider } from "./hooks/useAuth";
@@ -19,6 +22,7 @@ import GerenciarNoticias from "./pages/admin/GerenciarNoticias";
 import FormNoticia from "./pages/admin/FormNoticia";
 import GerenciarContatos from "./pages/admin/GerenciarContatos";
 import GerenciarAdmins from "./pages/admin/GerenciarAdmins";
+import GerenciarMensagens from "./pages/admin/GerenciarMensagens";
 import ConfiguracoesPerfil from "./pages/admin/ConfiguracoesPerfil";
 import GerenciarBackups from "./pages/admin/GerenciarBackups";
 
@@ -27,7 +31,7 @@ const theme = extendTheme({
   colors: {
     brand: {
       50: "#fff5f5",
-      100: "#fed7d7", 
+      100: "#fed7d7",
       200: "#feb2b2",
       300: "#fc8181",
       400: "#f56565",
@@ -84,10 +88,24 @@ function App() {
               <Footer />
             </>
           } />
+          <Route path="/eventos/:id" element={
+            <>
+              <Navbar />
+              <EventoDetalhes />
+              <Footer />
+            </>
+          } />
           <Route path="/noticias" element={
             <>
               <Navbar />
               <Noticias />
+              <Footer />
+            </>
+          } />
+          <Route path="/noticias/:id" element={
+            <>
+              <Navbar />
+              <NoticiaDetalhes />
               <Footer />
             </>
           } />
@@ -98,6 +116,27 @@ function App() {
               <Footer />
             </>
           } />
+
+          {/* Unificado: rota /parceiros (substitui /parcerias) */}
+          <Route path="/parceiros" element={
+            <>
+              <Navbar />
+              <Parcerias />
+              <Footer />
+            </>
+          } />
+
+          {/* Alias em inglês para a mesma página */}
+          <Route path="/partnerships" element={
+            <>
+              <Navbar />
+              <Parcerias />
+              <Footer />
+            </>
+          } />
+
+          {/* Redirect /dashboard to /admin/dashboard */}
+          <Route path="/dashboard" element={<Navigate to="/admin/dashboard" replace />} />
 
           {/* Rota de Login Admin */}
           <Route path="/admin/login" element={<Login />} />
@@ -171,6 +210,14 @@ function App() {
             <PrivateRoute>
               <AdminLayout>
                 <GerenciarAdmins />
+              </AdminLayout>
+            </PrivateRoute>
+          } />
+          
+          <Route path="/admin/mensagens" element={
+            <PrivateRoute>
+              <AdminLayout>
+                <GerenciarMensagens />
               </AdminLayout>
             </PrivateRoute>
           } />

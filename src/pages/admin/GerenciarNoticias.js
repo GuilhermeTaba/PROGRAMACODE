@@ -262,7 +262,7 @@ export default function GerenciarNoticias() {
                           size="sm"
                           colorScheme="blue"
                           variant="ghost"
-                          onClick={() => window.open(`#/noticias`, '_blank')}
+                          onClick={() => window.open(`/noticias/${noticia.id}`, '_blank')}
                         />
                       </Tooltip>
                       <Tooltip label={noticia.destaque ? 'Remover destaque' : 'Destacar'}>

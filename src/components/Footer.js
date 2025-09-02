@@ -133,6 +133,9 @@ export default function Footer() {
             <Link href="/noticias" color="gray.600" _hover={{ color: 'red.500' }}>
               Notícias
             </Link>
+            <Link href="/parceiros" color="gray.600" _hover={{ color: 'red.500' }}>
+              Parceiros
+            </Link>
             <Link href="/contato" color="gray.600" _hover={{ color: 'red.500' }}>
               Contato
             </Link>

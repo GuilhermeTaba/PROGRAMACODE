@@ -1,60 +1,33 @@
-import {
-  Box,
-  Center,
-  useColorModeValue,
-  Heading,
-  Stack,
-  Image,
-  Link,
-  Button
-} from '@chakra-ui/react';
+import { Box, Image, Link, VisuallyHidden } from '@chakra-ui/react';
 
 export default function Card({ cardInfo }) {
   return (
-    <Center py={12}>
-      <Box
-        role={'group'}
-        p={6}
-        maxW={'330px'}
-        w={'full'}
-        bg={useColorModeValue('white', 'gray.800')}
-        boxShadow={'2xl'}
-        rounded={'lg'}
-        pos={'relative'}
-        zIndex={1}>
+    <Box as="article" textAlign="center">
+      <Link href={cardInfo.link} isExternal _hover={{ opacity: 0.95 }}>
         <Box
-          rounded={'lg'}
-          mt={-12}
-          pos={'relative'}
-          height={'230px'}>
+          role="group"
+          p={4}
+          bg={'white'}
+          borderRadius="8px"
+          borderWidth="1px"
+          borderColor="gray.100"
+          boxShadow={'lg'}
+          transition="transform 150ms ease, box-shadow 150ms ease"
+          _hover={{ transform: 'translateY(-6px)', boxShadow: 'xl' }}
+        >
+          <VisuallyHidden>{cardInfo.name}</VisuallyHidden>
           <Image
-            rounded={'lg'}
-            height={230}
-            width={282}
-            objectFit={'cover'}
             src={cardInfo.image}
+            alt={cardInfo.name}
+            maxH={{ base: '64px', md: '80px', lg: '110px' }}
+            mx="auto"
+            objectFit="contain"
           />
         </Box>
-        <Stack pt={10} align={'center'}>
-          <Heading fontSize={'2xl'} fontFamily={'body'} fontWeight={500}>
-            {cardInfo.name}
-          </Heading>
-          <Link href={cardInfo.link} isExternal>
-            <Button
-              w={'full'}
-              mt={3}
-              bg={'#f68b23'}
-              color={'white'}
-              rounded={'md'}
-              _hover={{
-                transform: 'translateY(-2px)',
-                boxShadow: 'lg',
-              }}>
-              Mais informações
-            </Button>
-          </Link >
-        </Stack>
+      </Link>
+      <Box mt={2} fontSize="sm" color="#333">
+        {cardInfo.name}
       </Box>
-    </Center>
+    </Box>
   );
 }

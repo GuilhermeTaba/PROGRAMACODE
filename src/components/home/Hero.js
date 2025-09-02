@@ -12,6 +12,9 @@ import {
 } from '@chakra-ui/react';
 import { SiDiscord } from 'react-icons/si';
 
+export const BRAND_RED = "#d94a46"; // cor exportada para reutilização (igual à barra da landing)
+export const BRAND_RED_GRADIENT = "linear-gradient(90deg, #ff6b67 0%, #d94a46 50%, #c8102e 100%)"; // gradiente usado no texto da landing
+
 export default function CallToActionWithVideo() {
   return (
     <Container maxW={'7xl'}>

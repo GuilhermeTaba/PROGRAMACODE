@@ -12,6 +12,7 @@ import {
   Badge,
   useColorModeValue,
   Divider,
+  Button,
   Spinner,
   Alert,
   AlertIcon,
@@ -106,6 +107,17 @@ function EventCard({ evento }) {
               </HStack>
             )}
           </VStack>
+
+          {/* Botão Ver Detalhes */}
+          <Button
+            colorScheme="red"
+            variant="outline"
+            size="sm"
+            w="full"
+            onClick={() => window.location.href = `/eventos/${evento.id}`}
+          >
+            Ver Detalhes
+          </Button>
         </VStack>
       </Box>
     </Box>
@@ -184,22 +196,37 @@ export default function Eventos() {
     <Box>
       {/* Hero Section */}
       <Box
-        py={20}
-        bg="gray.900"
+        as="section"
         color="white"
+        py={{ base: 12, md: 20 }}
+        sx={{
+          backgroundImage:
+            "linear-gradient(180deg, rgba(8,2,2,0.98), rgba(40,8,8,0.95))",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
       >
-        <Container maxW="7xl">
+        <Container maxW="7xl" px={{ base: 6, lg: 8 }}>
           <VStack spacing={6} textAlign="center">
             <Heading
-              fontSize={{ base: '4xl', md: '5xl', lg: '6xl' }}
-              fontWeight="bold"
+              as="h1"
+              fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}
+              fontWeight="700"
+              letterSpacing="tight"
+              bgGradient="linear(to-r, #ff2a2a, #a80000)"
+              bgClip="text"
+              display="inline-block"
+              fontFamily={"'Inter', 'Poppins', 'Roboto', system-ui, sans-serif"}
             >
               Eventos
             </Heading>
             <Text
               fontSize={{ base: 'lg', md: 'xl' }}
               maxW="3xl"
-              color="gray.300"
+              color="white"
+              fontWeight="600"
+              lineHeight="1.5"
+              fontFamily={"'Inter', 'Source Sans Pro', system-ui, sans-serif"}
             >
               Registro de nossas colaborações passadas, palestras, workshops e 
               parcerias que fortalecem o ecossistema blockchain no Brasil
