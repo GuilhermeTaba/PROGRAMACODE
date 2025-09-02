@@ -1,4 +1,4 @@
-import { Box, Heading, Text, SimpleGrid, Container } from "@chakra-ui/react";
+import { Box, Heading, Text, SimpleGrid, Container, VStack } from "@chakra-ui/react";
 import { BRAND_RED, BRAND_RED_GRADIENT } from "../components/home/Hero";
 import Card from "../components/parcerias/Card";
 
@@ -105,7 +105,6 @@ export default function Parcerias() {
         color="white"
         py={{ base: 12, md: 20 }}
         sx={{
-          // removi os radial-gradients e a imagem de overlay; deixei um degradê escuro
           backgroundImage:
             "linear-gradient(180deg, rgba(40,8,8,0.95), rgba(8,2,2,0.98))",
           backgroundSize: "cover",
@@ -113,45 +112,32 @@ export default function Parcerias() {
         }}
       >
         <Container maxW="6xl" px={{ base: 6, lg: 8 }}>
-          <Heading
-            as="h1"
-            fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
-            fontWeight="700"
-            letterSpacing="tight"
-            bgGradient={BRAND_RED_GRADIENT}
-            bgClip="text"
-            display="inline-block"
-            fontFamily={"'Inter', 'Poppins', 'Roboto', system-ui, sans-serif"}
-          >
-            Parceiros
-          </Heading>
-
-          <Box
-            maxW="1100px"
-            mx="auto"
-            mt={6}
-            p={{ base: 6, md: 8 }}
-            bgGradient="linear(to-b, rgba(200,20,20,0.03), rgba(12,4,4,0.88))"
-            color="white"
-            borderRadius="10px"
-            borderLeft="6px solid"
-            borderColor={BRAND_RED}
-            boxShadow="0 10px 30px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.02)"
-            position="relative"
-            overflow="hidden"
-          >
+          <VStack spacing={6} textAlign="center">
+            <Heading
+              as="h1"
+              fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
+              fontWeight="700"
+              letterSpacing="tight"
+              bgGradient={BRAND_RED_GRADIENT}
+              bgClip="text"
+              display="inline-block"
+              fontFamily={"'Inter', 'Poppins', 'Roboto', system-ui, sans-serif"}
+            >
+              Parceiros
+            </Heading>
             <Text
               fontSize={{ base: "md", md: "lg" }}
               fontWeight="600"
               lineHeight="1.5"
               fontFamily={"'Inter', 'Source Sans Pro', system-ui, sans-serif"}
+              color="white"
             >
               A Blockchain Insper reúne instituições, empresas e pessoas que
               contribuem para o ecossistema — uma rede de apoiadores do mercado
               tradicional e das iniciativas disruptivas. Esta página é apenas
               informativa e não contém formulários ou solicitações de dados.
             </Text>
-          </Box>
+          </VStack>
         </Container>
       </Box>
 
