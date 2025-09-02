@@ -120,7 +120,7 @@ function Detalhes() {
       icon: FaChartLine,
       title: 'Finance ',
       description:
-        'Condução de researches de criptoativos modelados nos challenges tradicionais, permitindo aprendizando de avaliação de ativos, análise de mercado e gestão de portfólio',
+        'Condução de researches de criptoativos modelados nos challenges tradicionais, permitindo aprendizado de avaliação de ativos, análise de mercado e gestão de portfólio',
       accent: 'black',
       iconBg: 'gray.100',
       iconColor: 'black',
@@ -235,7 +235,8 @@ function QuemSomos() {
   return (
     <Box 
       position="relative"
-      minH="100vh"
+      /* aumentar bastante o espaçamento vertical */
+      py={28}
       bgGradient="linear(to-br, black, red.900)" // gradiente preto → vermelho
       color="white"
       display="flex"
@@ -245,7 +246,8 @@ function QuemSomos() {
       textAlign="center"
     >
       <Container maxW="4xl" position="relative" zIndex={1}>
-        <VStack spacing={8}>
+        {/* espaçamento maior entre heading e texto */}
+        <VStack spacing={10}>
           <Heading
             fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}
             fontWeight="800"
@@ -257,7 +259,7 @@ function QuemSomos() {
           </Heading>
 
           <Box
-            p={6}
+            p={10} /* padding interno maior */
             bg="rgba(255,255,255,0.04)"
             borderRadius="xl"
             borderLeft="4px solid"
@@ -277,9 +279,7 @@ function QuemSomos() {
               fontFamily="'Inter', 'Source Sans Pro', system-ui, sans-serif"
               fontWeight="100"
             >
-              Insper Blockchain é a primeira organização universitária da América Latina dedicada a explorar o potencial do blockchain e suas aplicações no mercado. A entidade promove capacitações, workshops, eventos e projetos que conectam jovens talentos a profissionais renomados no mercado, estimulando aprendizado prático e engajamento com tecnologias inovadoras.
-
-              Nosso objetivo é conectar a inovação ao mercado tradicional, transformando ideias em soluções concretas e preparando profissionais para liderar essa revolução. Valorizamos excelência, colaboração e visão de futuro, buscando posicionar a Insper Blockchain como referência em conhecimento, desenvolvimento e impacto no ecossistema de blockchain.
+              Conectar a inovação ao mercado tradicional, posicionando-se como líder dessa revolução
             </Text>
           </Box>
         </VStack>
