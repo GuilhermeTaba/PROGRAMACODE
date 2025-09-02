@@ -237,13 +237,18 @@ function QuemSomos() {
       position="relative"
       /* aumentar bastante o espaçamento vertical */
       py={28}
-      bgGradient="linear(to-br, black, red.900)" // gradiente preto → vermelho
       color="white"
       display="flex"
       alignItems="center"
       justifyContent="center"
       overflow="hidden"
       textAlign="center"
+      sx={{
+        backgroundImage:
+          "linear-gradient(180deg, rgba(8,2,2,0.98), rgba(40,8,8,0.95))",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
       <Container maxW="4xl" position="relative" zIndex={1}>
         {/* espaçamento maior entre heading e texto */}
@@ -306,15 +311,20 @@ function Estatisticas() {
     <Box  
       position="relative"
       minH="75vh"
-      bgGradient="linear(to-br, gray.900, gray.800)"
       color="white"
       display="flex"
       alignItems="center"
       justifyContent="center"
       overflow="hidden"
       py={20}
+      sx={{
+        backgroundImage:
+          "linear-gradient(180deg, rgba(8,2,2,0.98), rgba(40,8,8,0.95))",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
-  <Image
+      <Image
         src="/insper-aquario.jpg"
         alt="Insper Biblioteca"
         objectFit="cover"
@@ -324,56 +334,84 @@ function Estatisticas() {
         width="100%"
         height="100%"
         zIndex={0}
-        opacity={0.3}
-        filter="brightness(0.25)" 
+        opacity={0.2}
+        filter="brightness(0.15)" 
       />
 
-      <Container maxW="7xl">
-        <VStack spacing={12}>
-          <Heading
-
-            textAlign="center"
-            fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}
-            fontWeight="800"
-            lineHeight="1.1"
-            fontFamily="'Inter', 'Poppins', 'Roboto', system-ui, sans-serif"
-            letterSpacing="-0.02em"
-        
-  
-            color='white'
-          >
-            Impacto e Resultados
-          </Heading>
+      <Container maxW="7xl" position="relative" zIndex={1}>
+        <VStack spacing={16}>
+          <VStack spacing={6} textAlign="center">
+            <Heading
+              as="h2"
+              fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}
+              fontWeight="700"
+              letterSpacing="tight"
+              bgGradient="linear(to-r, #ff2a2a, #a80000)"
+              bgClip="text"
+              display="inline-block"
+              fontFamily={"'Inter', 'Poppins', 'Roboto', system-ui, sans-serif"}
+            >
+              Impacto e Resultados
+            </Heading>
+            <Text
+              fontSize={{ base: 'lg', md: 'xl' }}
+              maxW="3xl"
+              color="gray.200"
+              fontWeight="400"
+              lineHeight="1.5"
+              fontFamily={"'Inter', 'Source Sans Pro', system-ui, sans-serif"}
+            >
+              Números que refletem nosso crescimento e impacto no ecossistema blockchain
+            </Text>
+          </VStack>
           
-          <SimpleGrid columns={{ base: 2, md: 4 }} spacing={10} w="full">
+          <SimpleGrid columns={{ base: 2, md: 4 }} spacing={8} w="full">
             {stats.map((stat, index) => (
-              <VStack key={index} spacing={2} textAlign="center">
-                <Text
-                  fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}
-                  fontWeight="bold"
-                  color="brand.500"
-                >
-                  {stat.value}
-                </Text>
-                <Text
-  
-                  
-            fontSize={{ base: '12px', md: '14px', lg: '18px' }}
-            maxW="4xl"
-            lineHeight="1.6"
-            color="gray.300"
-            fontFamily="'Inter', 'Source Sans Pro', system-ui, sans-serif"
-            fontWeight="100"
-                >
-                  {stat.label}
-                </Text>
-              </VStack>
+              <Box
+                key={index}
+                textAlign="center"
+                p={6}
+                borderRadius="xl"
+                bg="rgba(255,255,255,0.05)"
+                border="1px solid"
+                borderColor="rgba(255,255,255,0.1)"
+                _hover={{
+                  bg: "rgba(255,255,255,0.08)",
+                  borderColor: "rgba(255,255,255,0.2)",
+                  transform: "translateY(-4px)",
+                  transition: "all 0.3s ease"
+                }}
+                transition="all 0.3s ease"
+              >
+                <VStack spacing={3}>
+                  <Text
+                    fontSize={{ base: '4xl', md: '5xl', lg: '6xl' }}
+                    fontWeight="900"
+                    fontFamily="'Inter', 'Poppins', 'Roboto', system-ui, sans-serif"
+                    letterSpacing="-0.02em"
+                    bgGradient="linear(to-r, #ff6b6b, #ff2a2a)"
+                    bgClip="text"
+                    lineHeight="0.9"
+                  >
+                    {stat.value}
+                  </Text>
+                  <Text
+                    fontSize={{ base: 'sm', md: 'md', lg: 'lg' }}
+                    color="gray.300"
+                    fontFamily="'Inter', 'Source Sans Pro', system-ui, sans-serif"
+                    fontWeight="500"
+                    textTransform="uppercase"
+                    letterSpacing="0.05em"
+                  >
+                    {stat.label}
+                  </Text>
+                </VStack>
+              </Box>
             ))}
           </SimpleGrid>
         </VStack>
       </Container>
     </Box>
-   
   );
 }
 

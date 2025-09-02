@@ -114,9 +114,37 @@ const SidebarContent = ({ onClose, ...rest }) => {
       {...rest}
     >
       <Flex h="20" alignItems="center" mx="8">
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold" color="red.500">
-          Blockchain Insper
-        </Text>
+        <Box position="relative">
+          <Text 
+            fontSize="xl" 
+            fontFamily="'Inter', 'Segoe UI', system-ui, sans-serif" 
+            fontWeight="800" 
+            bgGradient="linear(to-r, red.500, red.600, red.700)"
+            bgClip="text"
+            letterSpacing="-0.02em"
+            lineHeight="1.1"
+          >
+            BLOCKCHAIN
+          </Text>
+          <Text 
+            fontSize="lg" 
+            fontFamily="'Inter', 'Segoe UI', system-ui, sans-serif" 
+            fontWeight="700" 
+            color="black"
+            letterSpacing="-0.01em"
+            mt="-1"
+          >
+            INSPER
+          </Text>
+          <Box 
+            h="1" 
+            w="full" 
+            bgGradient="linear(to-r, red.500, black)"
+            borderRadius="full"
+            mt="1"
+            opacity="0.9"
+          />
+        </Box>
       </Flex>
       
       <VStack spacing={1} align="stretch" px={4}>
@@ -203,15 +231,29 @@ const MobileNav = ({ onOpen, userData, ...rest }) => {
         icon={<FaBars />}
       />
 
-      <Text
-        display={{ base: 'flex', md: 'none' }}
-        fontSize="2xl"
-        fontFamily="monospace"
-        fontWeight="bold"
-        color="red.500"
-      >
-        Blockchain Insper
-      </Text>
+      <Box display={{ base: 'flex', md: 'none' }}>
+        <Text 
+          fontSize="lg" 
+          fontFamily="'Inter', 'Segoe UI', system-ui, sans-serif" 
+          fontWeight="800" 
+          bgGradient="linear(to-r, red.500, red.600, red.700)"
+          bgClip="text"
+          letterSpacing="-0.02em"
+          lineHeight="1.1"
+        >
+          BLOCKCHAIN
+        </Text>
+        <Text 
+          fontSize="md" 
+          fontFamily="'Inter', 'Segoe UI', system-ui, sans-serif" 
+          fontWeight="700" 
+          color="black"
+          letterSpacing="-0.01em"
+          ml="2"
+        >
+          INSPER
+        </Text>
+      </Box>
 
       <HStack spacing={{ base: '2', md: '6' }}>
         <Menu>

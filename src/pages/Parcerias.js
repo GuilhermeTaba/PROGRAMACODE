@@ -106,7 +106,7 @@ export default function Parcerias() {
         py={{ base: 12, md: 20 }}
         sx={{
           backgroundImage:
-            "linear-gradient(180deg, rgba(40,8,8,0.95), rgba(8,2,2,0.98))",
+            "linear-gradient(180deg, rgba(8,2,2,0.98), rgba(40,8,8,0.95))",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -118,7 +118,7 @@ export default function Parcerias() {
               fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
               fontWeight="700"
               letterSpacing="tight"
-              bgGradient={BRAND_RED_GRADIENT}
+              bgGradient="linear(to-r, #ff2a2a, #a80000)"
               bgClip="text"
               display="inline-block"
               fontFamily={"'Inter', 'Poppins', 'Roboto', system-ui, sans-serif"}

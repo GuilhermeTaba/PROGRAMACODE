@@ -211,7 +211,7 @@ export default function Noticias() {
         py={{ base: 12, md: 20 }}
         sx={{
           backgroundImage:
-            "linear-gradient(180deg, rgba(40,8,8,0.95), rgba(8,2,2,0.98))",
+            "linear-gradient(180deg, rgba(8,2,2,0.98), rgba(40,8,8,0.95))",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}

@@ -289,7 +289,7 @@ export default function Contato() {
           position="relative"
           left="50%"
           ml="-50vw"
-          backgroundImage="linear-gradient(180deg, rgba(40,8,8,0.95), rgba(8,2,2,0.98))"
+          backgroundImage="linear-gradient(180deg, rgba(8,2,2,0.98), rgba(40,8,8,0.95))"
           backgroundSize="cover"
           backgroundPosition="center"
           color="white"
@@ -300,20 +300,17 @@ export default function Contato() {
           display="flex"
           alignItems="center"
         >
-          <Container maxW="container.xl">
-            <Stack spacing={{ base: 6, md: 8 }}>
+          <Container maxW="7xl" px={{ base: 6, lg: 8 }}>
+            <VStack spacing={6} textAlign="center">
               <Heading
-                fontSize={{ base: "4xl", md: "6xl" }}
-                lineHeight="1"
-                fontWeight="800"
-                mt={0}
-                fontFamily={"'Inter', 'Poppins', 'Roboto', system-ui, sans-serif"}
-                letterSpacing="-0.02em"
-                bgGradient={BRAND_RED_GRADIENT}
+                as="h1"
+                fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}
+                fontWeight="700"
+                letterSpacing="tight"
+                bgGradient="linear(to-r, #ff2a2a, #a80000)"
                 bgClip="text"
-                color="transparent"
-                backgroundRepeat="no-repeat"
                 display="inline-block"
+                fontFamily={"'Inter', 'Poppins', 'Roboto', system-ui, sans-serif"}
               >
                 Contato
               </Heading>
@@ -371,7 +368,7 @@ export default function Contato() {
                   />
                 </Link>
               </HStack>
-            </Stack>
+            </VStack>
           </Container>
         </Box>
 
@@ -441,7 +438,7 @@ export default function Contato() {
           position="relative"
           left="50%"
           ml="-50vw"
-          backgroundImage="linear-gradient(180deg, rgba(40,8,8,0.95), rgba(8,2,2,0.98))"
+          backgroundImage="linear-gradient(180deg, rgba(8,2,2,0.98), rgba(40,8,8,0.95))"
           backgroundSize="cover"
           backgroundPosition="center"
           color="white"
@@ -456,7 +453,7 @@ export default function Contato() {
               mb={{ base: 6, md: 10 }}
               fontWeight="800"
               fontFamily={"'Inter', 'Poppins', 'Roboto', system-ui, sans-serif"}
-              bgGradient={BRAND_RED_GRADIENT}
+              bgGradient="linear(to-r, #ff2a2a, #a80000)"
               bgClip="text"
               display="inline-block"
               pl={{ base: 6, md: 10 }}          // alinha o texto com a borda interna do mapa
